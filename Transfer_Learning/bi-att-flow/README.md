@@ -84,30 +84,19 @@ python -m basic.cli --mode train --noload --num_gpus 3 --batch_size 20
 Similarly, you can speed up your testing by:
 ```
 python -m basic.cli --num_gpus 3 --batch_size 20 
-
-
+```
 
 ## 5. Demo
 You may try your own paragraph and question by pasting your paragraph in the file `SAMPLE_PARAGRAPH` and then running
 ```
 python 1_comprehend.py SAMPLE_PARAGRAPH <question>
 ```
-For example, 
-```
-python comprehend.py SAMPLE_PARAGRAPH_1 what condition was Zain born with?
-```
-
 
 ## 6. Demo on static document
 You may try any question by keeping the paragraph content constant. 
 ```
 python 2_comprehend_static.py <question>
 ```
-For example, 
-```
-python 2_comprehend_static.py what condition was Zain born with?
-```
-
 
 ## 7. Bot Experience on static document
 You may create a bot using your own paragraph/document. Here we use Harry Shum's Book "Future Computed" as out static document. 
@@ -118,10 +107,7 @@ python 3_comprehend_future_computed_run_flask_server.py
 This operationalizes the model at port 5000. To test the bot locally we can run:
 ```
 python 4_comprehend_future_computed_request.py "What is the future of AI"?
-
 ```
-
- 
 
 [multi-gpu]: https://www.tensorflow.org/versions/r0.11/tutorials/deep_cnn/index.html#training-a-model-using-multiple-gpu-cards
 [squad]: http://stanford-qa.com
