@@ -1,5 +1,10 @@
 **Evaluating the R-NET Model**
 
+- This is the implementation of paper [R-NET: MACHINE READING COMPREHENSION WITH
+SELF-MATCHING NETWORKS](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/05/r-net.pdf).
+- Code is adapted from [https://github.com/minsangkim142/R-net](https://github.com/minsangkim142/R-net)
+- Please contact the original authors for questions and suggestions. 
+
 R-NET is an end-to-end neural networks model for reading comprehension style question answering, which aims to answer questions from a given passage. R-NET first matches the question and passage with gated attention-based recurrent networks to obtain the question-aware passage representation. Then R-NET applies a self-matching attention mechanism to refine the representation by matching the passage against itself, which effectively encodes information from the whole passage. Finally, the R-NET employ the pointer networks to locate the positions of answers from the passages.
 
 1. **The R-NET Model**
@@ -33,6 +38,7 @@ The R-NET paper authors provided us with a SQUAD-trained R-NET model and some sa
 
 5. **Creating a QA-Bot with R-NET Model for our comparison study**
 
+**STILL TODO**
 Instead of trying QA on multiple disjoint documents, we wanted to create a QA-Bot for a big corpus using the trained R-NET model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI) ( **Figure 3** ).
 
 ![alt text]()
