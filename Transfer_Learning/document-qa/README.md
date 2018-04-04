@@ -6,6 +6,9 @@ This model, by [Clark et. al., 2017](https://arxiv.org/pdf/1710.10723.pdf), cons
 
 The model consists of six different layers as shown in **Figure 1**.
 
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa1.PNG)
+
+
 2. **Document-QA Model Layers**
 
     a. **Embedding**
@@ -42,12 +45,16 @@ There are two training datasets for the Document-QA model. We can use either of 
   - Relatively complex, compositional questions
   - Considerable syntactic and lexical variability between questions and                                       corresponding answer-evidence sentences
   - Requires more cross sentence reasoning to find answers
+To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/Instructions.md)
+
 
 4. **Document-QA Test**
 There is a public [Document-QA Demo Link](https://documentqa.allenai.org/) available for testing the TriviaQA-trained Document-QA model. In this demo, you can ask a question to the web documents by choosing the web option, or to some paragraph by choosing the text option, or to some document by choosing the document option.
 
+
 5. **Creating a QA-Bot with TriviaQA-trained Document-QA model for our comparison study**
 Instead of trying QA on multiple disjoint documents, we wanted to create a QA-Bot for a big corpus using the TriviaQA-trained Document-QA model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI).
+
 
 6. **Existing Resources**
 
@@ -70,3 +77,15 @@ f. We have the demo working comparing the [open TAGME API](https://tagme.d4scien
 g. We have a Web option where we run a query using the TAGME API ( **Figure 4** and **6** ).
 h. We have a Document option where we run a query using the TriviaQA-trained Document-QA model on Future Computed book ( **Figure 5** and **7** ).
 i. We see that TAGME API works better for generic questions (like- &quot;How will AI affect jobs&quot;). However, the TriviaQA-trained Document-QA model works better on targeted question from a document (like- &quot;What is AI Law&quot;)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa2.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa3.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa4.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa5.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa6.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa7.PNG)
