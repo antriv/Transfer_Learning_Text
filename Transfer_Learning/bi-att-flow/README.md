@@ -1,118 +1,64 @@
-# Bi-directional Attention Flow for Machine Comprehension
- 
-- This the original implementation of [Bi-directional Attention Flow for Machine Comprehension][paper] (Seo et al., 2016).
-- This is tensorflow v1.2.0 comaptible version.
-- Refer to [the original paper][paper] for more details.
-- See [SQuAD Leaderboard][squad] to compare with other models.
-- Please contact the original authors [Minjoon Seo][minjoon] ([@seominjoon][minjoon-github]) for questions and suggestions. 
+**Evaluating the Bi-Directional Attention Flow (BIDAF) Model**
 
-## 0. Requirements
-#### General
-- Python 3
-- unzip
+To accurately answer questions based on a document, we need to be able to model complex interactions between the document and query. This paper by [Seo et. al., 2017](https://arxiv.org/pdf/1611.01603.pdf) uses the Bi-Directional Attention Flow (BiDAF) network to process an attention context that is query aware and represents the document at different levels of granularity. Its main advantage is the bidirectional attention flow, which eliminates the early summarization issue we see with normal uni-directional attentional interfaces. Furthermore, the BiDAF does not use just one context vector (i.e, the summary) but uses vectors from all time steps.
 
-#### Python Packages
-- tensorflow (deep learning library, verified on 1.2.0)
-- nltk
-- tqdm
+1. **BiDAF Model**
 
+The model consists of six different layers as shown in **Figure 1**.
 
-## 1. Pre-processing
-First, prepare data. Donwload SQuAD data and GloVe and nltk corpus
-(~850 MB, this will download files to `$HOME/data`):
-```
-chmod +x download.sh; ./download.sh
-```
+1. **BiDAF Model Layers**
 
-Second, Preprocess Stanford QA dataset (along with GloVe vectors) and save them in `$PWD/data/squad` (~5 minutes):
-```
-python -m squad.prepro
-```
+1. **a.**** Character-Level Embedding**
 
-## 2. Training
-The model was trained with 4 NVidia Tesla K80 GPUs, CUDA & cuDNN.If your GPU RAM does not have enough memory, you can either decrease batch size (performance might degrade), or you can use multi GPU (see below).
-The training converges at ~18k steps, and it took ~10s per step (i.e. ~50 hours).
+A char-CNN used to map each word to an embedding.
 
-Before training, it is recommended to first try the following code to verify everything is okay and memory is sufficient:
-```
-python -m basic.cli --mode train --noload --debug
-```
+1. **b.**** Word-Level Embedding**
 
-Then to fully train, run:
-```
-python -m basic.cli --mode train --noload
-```
+Pretrained GLOVE embeddings are used to map each word to a vector.
 
-You can speed up the training process with optimization flags:
-```
-python -m basic.cli --mode train --noload --len_opt --cluster
-```
-You can still omit them, but training will be much slower.
+1. **c.**** Phrase-Level Embedding**
 
+Uses char-level and word-level embedding layers to refine the embeddings of words using context from other words.
 
-## 3. Test
-To test, run:
-```
-python -m basic.cli
-```
+1. **d.**** Attentional Interface**
 
-Similarly to training, you can give the optimization flags to speed up test (5 minutes on dev data):
-```
-python -m basic.cli --len_opt --cluster
-```
+Uses the query and document vectors from previous three layers to produce query aware feature vectors for each word in the document. Basically, we are trying to create a higher representation for each word in the document that is query aware, so we can get the right answer.
 
-This command loads the most recently saved model during training and begins testing on the test data.
-After the process ends, it prints F1 and EM scores, and also outputs a json file (`$PWD/out/basic/00/answer/test-####.json`,
-where `####` is the step # that the model was saved).
-Note that the printed scores are not official (our scoring scheme is a bit harsher).
-To obtain the official number, use the official evaluator (copied in `squad` folder) and the output json file:
+1. **e.**** Modeling Layer**
 
-```
-python squad/evaluate-v1.1.py $HOME/data/squad/dev-v1.1.json out/basic/00/answer/test-####.json
-```
+Uses an RNN to scan the document.
 
+1. **f.**** Output Layer**
 
-## 4. Multi-GPU Training & Testing
-This model supports multi-GPU training.
-If you want to use batch size of 60 (default) but if you have 3 GPUs with 4GB of RAM,
-then you initialize each GPU with batch size of 20, and combine the gradients on CPU.
-This can be easily done by running:
-```
-python -m basic.cli --mode train --noload --num_gpus 3 --batch_size 20
-```
+Gives us the answer to the query.
 
-Similarly, you can speed up your testing by:
-```
-python -m basic.cli --num_gpus 3 --batch_size 20 
-```
+1. **BiDAF Training Dataset**
 
-## 5. Demo
-You may try your own paragraph and question by pasting your paragraph in the file `SAMPLE_PARAGRAPH` and then running
-```
-python 1_comprehend.py SAMPLE_PARAGRAPH <question>
-```
+The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets.
 
-## 6. Demo on static document
-You may try any question by keeping the paragraph content constant. 
-```
-python 2_comprehend_static.py <question>
-```
+1. **BiDAF Test**
 
-## 7. Bot Experience on static document
-You may create a bot using your own paragraph/document. Here we use Harry Shum's Book "Future Computed" as out static document. 
-Now, we need to operationalize the model on this document. We use python Flask API to operationalize the model locally.
-```
-python 3_comprehend_future_computed_run_flask_server.py
-```
-This operationalizes the model at port 5000. To test the bot locally we can run:
-```
-python 4_comprehend_future_computed_request.py "What is the future of AI"?
-```
+There is a public [BiDAF Demo Link](http://35.165.153.16:1995/) available for testing the trained BiDAF model ( **Figure 2** ). Here in Figure 3, we can enter any paragraph to test. In the question section, we can add a question we want to ask about the paragraph on the left. The trained BiDAF model selects the best probable span from the paragraph as an answer to the query we put in and this span is displayed in the answer section.
 
-[multi-gpu]: https://www.tensorflow.org/versions/r0.11/tutorials/deep_cnn/index.html#training-a-model-using-multiple-gpu-cards
-[squad]: http://stanford-qa.com
-[paper]: https://arxiv.org/abs/1611.01603
-[worksheet]: https://worksheets.codalab.org/worksheets/0x37a9b8c44f6845c28866267ef941c89d/
-[minjoon]: https://seominjoon.github.io
-[minjoon-github]: https://github.com/seominjoon
-[v0.2.1]: https://github.com/allenai/bi-att-flow/tree/v0.2.1
+1. **Creating a QA-Bot with BiDAF model for our comparison study**
+
+Instead of trying QA on multiple disjoint small paragraphs, we wanted to create a QA-Bot for a big corpus using the trained BiDAF model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI) ( **Figure**** 3**).
+
+1. **Existing Resources**
+
+**Paper:** [https://arxiv.org/pdf/1611.01603.pdf](https://arxiv.org/pdf/1611.01603.pdf)
+
+**GitHub:** [https://github.com/allenai/bi-att-flow](https://github.com/allenai/bi-att-flow)
+
+**Demo Link:** [http://allgood.cs.washington.edu:1995/](http://allgood.cs.washington.edu:1995/)
+
+1. **Our Contribution**  **-**   [https://github.com/antriv/bi-att-flow](https://github.com/antriv/bi-att-flow)
+
+1. We have converted code to TF 1.2 v from TF 0.12 v.
+2. We have the demo link working with latest TF 1.2v
+3. We wrote script for testing any custom paragraph - 1\_comprehend.py
+4. We wrote script for testing any static paragraph- 2\_comprehend\_static.py
+5. We wrote a flask api server to operationalize the model locally on a Linux DSVM- 3\_comprehend\_future\_computed\_run\_flask\_server\_local.py
+6. We wrote a flask api client to test the model locally on a Linux DSVM - 4\_comprehend\_future\_computed\_request\_local.py
+7. Created a bot backend with model- 5\_comprehend\_future\_computed\_run\_flask\_server\_bot.py
+8. We have a bot working with this model as the backend. ( **Figure 3** )
