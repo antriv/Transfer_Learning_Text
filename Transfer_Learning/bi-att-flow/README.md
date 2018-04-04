@@ -6,51 +6,54 @@ To accurately answer questions based on a document, we need to be able to model 
 
 The model consists of six different layers as shown in **Figure 1**.
 
+![alt text]()
+
+
 2. **BiDAF Model Layers**
 
-**a.**** Character-Level Embedding**
+    **a.** Character-Level Embedding
+    A char-CNN used to map each word to an embedding.
 
-A char-CNN used to map each word to an embedding.
+    **b.** Word-Level Embedding
+    Pretrained GLOVE embeddings are used to map each word to a vector.
 
-**b.**** Word-Level Embedding**
+    **c.** Phrase-Level Embedding
+    Uses char-level and word-level embedding layers to refine the embeddings of words using context from other words.
 
-Pretrained GLOVE embeddings are used to map each word to a vector.
+    **d.** Attentional Interface
+Uses the query and document vectors from previous three layers to produce query aware feature vectors for each word in the        document. Basically, we are trying to create a higher representation for each word in the document that is query aware, so we can get the right answer.
 
-**c.**** Phrase-Level Embedding**
+    **e.**** Modeling Layer**
+    Uses an RNN to scan the document.
 
-Uses char-level and word-level embedding layers to refine the embeddings of words using context from other words.
+    **f.** Output Layer
+    Gives us the answer to the query.
 
-**d.**** Attentional Interface**
+3. **BiDAF Training Dataset**
 
-Uses the query and document vectors from previous three layers to produce query aware feature vectors for each word in the document. Basically, we are trying to create a higher representation for each word in the document that is query aware, so we can get the right answer.
+The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets. To train the model, please follow instrucion [here in the original GitHub]()
 
-**e.**** Modeling Layer**
-
-Uses an RNN to scan the document.
-
-**f.**** Output Layer**
-
-Gives us the answer to the query.
-
-1. **BiDAF Training Dataset**
-
-The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets.
-
-1. **BiDAF Test**
+4. **BiDAF Test**
 
 There is a public [BiDAF Demo Link](http://35.165.153.16:1995/) available for testing the trained BiDAF model ( **Figure 2** ). Here in Figure 3, we can enter any paragraph to test. In the question section, we can add a question we want to ask about the paragraph on the left. The trained BiDAF model selects the best probable span from the paragraph as an answer to the query we put in and this span is displayed in the answer section.
 
-1. **Creating a QA-Bot with BiDAF model for our comparison study**
+![alt text]()
+
+5. **Creating a QA-Bot with BiDAF model for our comparison study**
 
 Instead of trying QA on multiple disjoint small paragraphs, we wanted to create a QA-Bot for a big corpus using the trained BiDAF model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI) ( **Figure**** 3**).
 
+![alt text]()
+
+
 1. **Existing Resources**
 
-**Paper:** [https://arxiv.org/pdf/1611.01603.pdf](https://arxiv.org/pdf/1611.01603.pdf)
+    **Paper:** [https://arxiv.org/pdf/1611.01603.pdf](https://arxiv.org/pdf/1611.01603.pdf)
 
-**GitHub:** [https://github.com/allenai/bi-att-flow](https://github.com/allenai/bi-att-flow)
+    **GitHub:** [https://github.com/allenai/bi-att-flow](https://github.com/allenai/bi-att-flow)
 
-**Demo Link:** [http://allgood.cs.washington.edu:1995/](http://allgood.cs.washington.edu:1995/)
+    **Demo Link:** [http://allgood.cs.washington.edu:1995/](http://allgood.cs.washington.edu:1995/)
+    
 
 1. **Our Contribution**  **-**   [https://github.com/antriv/bi-att-flow](https://github.com/antriv/bi-att-flow)
 
