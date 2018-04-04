@@ -1,4 +1,4 @@
-﻿#**Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
+**Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
 
 
 
@@ -54,9 +54,9 @@ The idea of generating synthetic data to augment insufﬁcient training data has
 
 To build all the MRC models, we use the following tools and Platform –
 
-**1.** We use [DSVM](https://azure.microsoft.com/en-us/services/virtual-machines/data-science-virtual-machines/) as the compute environment with a NVIDIA Tesla K80 GPU, CUDA and cuDNN libraries.
+  **1.** We use [DSVM](https://azure.microsoft.com/en-us/services/virtual-machines/data-science-virtual-machines/) as the compute environment with a NVIDIA Tesla K80 GPU, CUDA and cuDNN libraries.
 
-**2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create 3 deep learning models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
+  **2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create 3 deep learning models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
 
 
 
@@ -109,86 +109,86 @@ We compare the performance in more details below.
 
 1. **Pros/Cons of using the BiDAF model for Transfer Learning**
 
-a. **Pros**
+    a. **Pros**
 
-BiDAF model is easy to train and test (thanks to AllenAI for making all the codes available through open [GitHub](https://github.com/allenai/bi-att-flow) link).
+    BiDAF model is easy to train and test (thanks to AllenAI for making all the codes available through open [GitHub](https://github.com/allenai/bi-att-flow) link).
 
-b. **Cons**
+    b. **Cons**
 
-As we can see for Figure 3 and Figure 4 above, the BiDAF model has very restricted usage. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
+    As we can see for Figure 3 and Figure 4 above, the BiDAF model has very restricted usage. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
-c. **Our Resource Contribution**  **in GitHub:** [**https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/bi-att-flow**](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/bi-att-flow)
+    c. **Our Resource Contribution**  **in GitHub:** [**https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/bi-att-flow**](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/bi-att-flow)
 
 
 
 2. **Pros/Cons of using the Document-QA model for Transfer Learning**
 
-a. **Pros**
+    a. **Pros**
 
-Document-QA model is very easy to train and test (thanks to AllenAI for making all the codes available through open [GitHub](https://github.com/allenai/document-qa) link). As we can see from **Figure 5** and **Figure 7** , the Document-QA model does a better job compared to the BiDAF model we explored earlier. Given multiple larger documents, this model usually takes a very little time to produce multiple probable spans as answers.
+    Document-QA model is very easy to train and test (thanks to AllenAI for making all the codes available through open [GitHub](https://github.com/allenai/document-qa) link). As we can see from **Figure 5** and **Figure 7** , the Document-QA model does a better job compared to the BiDAF model we explored earlier. Given multiple larger documents, this model usually takes a very little time to produce multiple probable spans as answers.
 
-b. **Cons**
+    b. **Cons**
 
-However, as Document-QA does not give a single answer, it might be the case the most probable answer is assigned a lower priority by the algorithm.which might not make any sense at all. We hypothesize that if the model only sees paragraphs that contain answers, it might become too confident in heuristics or patterns that are only effective when it is known a priori that an answer exists. For example, in **Table 1** (adapted from the [paper](https://arxiv.org/pdf/1710.10723.pdf)) below, we observe that the model will assign high confidence values to spans that strongly match the category of the answer, even if the question words do not match the context. This might work passably well if an answer is present but can lead to highly over-confident extractions in other cases.
+    However, as Document-QA does not give a single answer, it might be the case the most probable answer is assigned a lower priority by the algorithm.which might not make any sense at all. We hypothesize that if the model only sees paragraphs that contain answers, it might become too confident in heuristics or patterns that are only effective when it is known a priori that an answer exists. For example, in **Table 1** (adapted from the [paper](https://arxiv.org/pdf/1710.10723.pdf)) below, we observe that the model will assign high confidence values to spans that strongly match the category of the answer, even if the question words do not match the context. This might work passably well if an answer is present but can lead to highly over-confident extractions in other cases.
 
-c. **Our Resource Contribution in GitHub:** [https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/document-qa](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/document-qa)
+    c. **Our Resource Contribution in GitHub:** [https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/document-qa](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/document-qa)
 
 
 
 3. **Pros/Cons of using the ReasoNet model for Transfer Learning**
 
-a. **Pros**
+    a. **Pros**
 
-ReasoNets make use of multiple turns to effectively exploit and then reason over the relation among queries, documents, and answers. With the use of reinforcement learning, ReasoNets can dynamically determine whether to continue the comprehension process after digesting intermediate results, or to terminate reading.
+    ReasoNets make use of multiple turns to effectively exploit and then reason over the relation among queries, documents, and answers. With the use of reinforcement learning, ReasoNets can dynamically determine whether to continue the comprehension process after digesting intermediate results, or to terminate reading.
 
-b. **Cons**
+    b. **Cons**
 
-It&#39;s hard to recreate results from this paper. No open code is available for this. The ReasoNet model has very restricted usage. It works well only on a small paragraph. Given a larger paragraph, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
+    It&#39;s hard to recreate results from this paper. No open code is available for this. The ReasoNet model has very restricted usage. It works well only on a small paragraph. Given a larger paragraph, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
-c. **Our Resource Contribution**
+    c. **Our Resource Contribution**
 
-**GitHub:** We added some Demo code for this work. But no public GitHub code available for this.
+    **GitHub:** We added some Demo code for this work. But no public GitHub code available for this.
 
 
 
 4. **Pros/Cons of using the R-NET model for Transfer Learning**
 
-a. **Pros**
+    a. **Pros**
 
-Apart from training this on SQUAD, we can train this model also on MS-MARCO. In MS-MARCO, every question has several corresponding passages, so we simply concatenate all passages of one question in the order given in the dataset. Secondly, the answers in MS-MARCO are not necessarily subspans of the passages. In this regard, we choose the span with the highest evaluation score with the reference answer as the gold span in the training and predict the highest scoring span as answer during prediction. R-NET model on MS-MARCO dataset out-performs other competitive baselines like ReasoNet.
+    Apart from training this on SQUAD, we can train this model also on MS-MARCO. In MS-MARCO, every question has several corresponding passages, so we simply concatenate all passages of one question in the order given in the dataset. Secondly, the answers in MS-MARCO are not necessarily subspans of the passages. In this regard, we choose the span with the highest evaluation score with the reference answer as the gold span in the training and predict the highest scoring span as answer during prediction. R-NET model on MS-MARCO dataset out-performs other competitive baselines like ReasoNet.
 
-b. **Cons**
+    b. **Cons**
 
-For data-driven approach, labeled data might become the bottleneck for better performance. While texts are abundant, it is not easy to find question-passage pairs that match the style of SQuAD. To generate more data, R-NET model authors trained a sequence-to-sequence question generation model using SQuAD dataset and produced a large amount of pseudo question-passage pairs from English Wikipedia. But analysis shows that the quality of generated questions needs improvement. R-NET works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
+    For data-driven approach, labeled data might become the bottleneck for better performance. While texts are abundant, it is not easy to find question-passage pairs that match the style of SQuAD. To generate more data, R-NET model authors trained a sequence-to-sequence question generation model using SQuAD dataset and produced a large amount of pseudo question-passage pairs from English Wikipedia. But analysis shows that the quality of generated questions needs improvement. R-NET works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
 
 
 5. **Pros/Cons of using the SynNet model for Finetuning**
 
-a. **Pros:**
+    a. **Pros:**
 
-Using the SynNet model on NewsQA dataset was very easy. It also generated great QA pairs on NewsQA dataset.
+    Using the SynNet model on NewsQA dataset was very easy. It also generated great QA pairs on NewsQA dataset.
 
-b. **Cons**
+    b. **Cons**
 
-The SynNet model has very restricted usage. It is hard to run the open existing code on a custom paragraph/text. IT needs a lot of manual data processing, and the steps are not clear from this open GitHub link. Thus, we could not test it on our test book corpus.
+    The SynNet model has very restricted usage. It is hard to run the open existing code on a custom paragraph/text. IT needs a lot of manual data processing, and the steps are not clear from this open GitHub link. Thus, we could not test it on our test book corpus.
 
 
 
 6. **Pros/Cons of using the OpenNMT model for Finetuning**
 
-a. **Pros:**
+    a. **Pros:**
 
-Using the OpenNMT model, we were able to get most accurate results till date on a niche domain without any additional training data, approaching to the performance of a fully supervised MRC system. OpenNMT works in two stages:
+    Using the OpenNMT model, we were able to get most accurate results till date on a niche domain without any additional training data, approaching to the performance of a fully supervised MRC system. OpenNMT works in two stages:
 
- **i.** Answer Synthesis - Given a text paragraph, generate an answer.
- **ii.** Question Synthesis - Given a text paragraph and an answer, generate a question.
+     **i.** Answer Synthesis - Given a text paragraph, generate an answer.
+     **ii.** Question Synthesis - Given a text paragraph and an answer, generate a question.
 
-Once we get the generated QA pairs from a new domain, we can also train a Seq2Seq model on this QA pairs to generate more human-like Conversation AI approach from MRC.
+    Once we get the generated QA pairs from a new domain, we can also train a Seq2Seq model on this QA pairs to generate more human-like Conversation AI approach from MRC.
 
-b. **Cons**
+    b. **Cons**
 
-The OpenNMT model training code is not available open source. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
+    The OpenNMT model training code is not available open source. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
 
 
