@@ -1,5 +1,11 @@
 **Evaluating the Document-QA Model**
 
+
+- This is the implementation of paper [Simple and Effective Multi-Paragraph Reading Comprehension](https://arxiv.org/pdf/1710.10723.pdf) (Clark et. al., 2017).
+- Code is adapted from [https://github.com/allenai/document-qa](https://github.com/allenai/document-qa)
+- Please contact the original authors for questions and suggestions. 
+
+
 This model, by [Clark et. al., 2017](https://arxiv.org/pdf/1710.10723.pdf), considers the problem of adapting neural paragraph-level question answering models to the case where entire documents are given as input. Here the authors proposed a solution that trains models to produce well calibrated confidence scores for their results on individual paragraphs. This model sample multiple paragraphs from the documents during training and use a shared normalization training objective that encourages the model to produce globally correct output. Next, this method is combined with a state-of-the-art pipeline for training models on document QA data.
 
 1. **Document-QA Model**
