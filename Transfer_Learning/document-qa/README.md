@@ -83,11 +83,15 @@ i. We see that TAGME API works better for generic questions (like- &quot;How wil
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa3.PNG)
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/Capture1.PNG)
-**Fig.4: Query on Web using Search API**
+
+ **Fig.4: Query on Web using Search API**
+
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa5.PNG)
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/Capture3.PNG)
-**Fig.6: Query on Web using Search API**
+ 
+ **Fig.6: Query on Web using Search API**
+
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/screenshots/docqa7.PNG)
