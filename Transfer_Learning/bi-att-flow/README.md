@@ -11,22 +11,22 @@ The model consists of six different layers as shown in **Figure 1**.
 
 2. **BiDAF Model Layers**
 
-    **a.** Character-Level Embedding
+    **a.** Character-Level Embedding: 
     A char-CNN used to map each word to an embedding.
 
-    **b.** Word-Level Embedding
+    **b.** Word-Level Embedding: 
     Pretrained GLOVE embeddings are used to map each word to a vector.
 
-    **c.** Phrase-Level Embedding
+    **c.** Phrase-Level Embedding: 
     Uses char-level and word-level embedding layers to refine the embeddings of words using context from other words.
 
-    **d.** Attentional Interface
+    **d.** Attentional Interface: 
 Uses the query and document vectors from previous three layers to produce query aware feature vectors for each word in the        document. Basically, we are trying to create a higher representation for each word in the document that is query aware, so we can get the right answer.
 
-    **e.**** Modeling Layer**
+   **e.** Modeling Layer: 
     Uses an RNN to scan the document.
 
-    **f.** Output Layer
+   **f.** Output Layer:
     Gives us the answer to the query.
 
 3. **BiDAF Training Dataset**
