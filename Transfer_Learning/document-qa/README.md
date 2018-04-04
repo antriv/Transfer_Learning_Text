@@ -43,8 +43,10 @@ There are two training datasets for the Document-QA model. We can use either of 
 
 **b.** Document-QA is trained on [TriviaQA](http://nlp.cs.washington.edu/triviaqa/) by [Joshi et. Al., 2017](https://arxiv.org/pdf/1705.03551.pdf). TriviaQA is a challenging reading comprehension dataset containing over 650K question-answer-evidence triples. TriviaQA includes 95K question-answer pairs authored by trivia enthusiasts and independently gathered evidence documents, six per question on average, that provide high quality distant supervision for answering the questions. In comparison to other recently introduced large-scale datasets, TriviaQA has –
   - Relatively complex, compositional questions
-  - Considerable syntactic and lexical variability between questions and                                       corresponding answer-evidence sentences
+  - Considerable syntactic and lexical variability between questions and corresponding answer-evidence sentences
   - Requires more cross sentence reasoning to find answers
+
+
 To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/Instructions.md)
 
 
