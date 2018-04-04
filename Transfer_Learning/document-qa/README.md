@@ -32,7 +32,7 @@ The model consists of six different layers as shown in **Figure 1**.
 
     This model also employs variational dropout, where a randomly selected set of hidden units are set to zero across all time steps during training. We dropout the input to all the GRUs, including the word embeddings, as well as the input to the attention mechanisms.
 
-3. **Document-QA **** Training Dataset**
+3. **Document-QA Training Dataset**
 
 There are two training datasets for the Document-QA model. We can use either of them to train the model.
 
@@ -51,20 +51,22 @@ Instead of trying QA on multiple disjoint documents, we wanted to create a QA-Bo
 
 6. **Existing Resources**
 
-  **Paper:** [https://arxiv.org/pdf/1710.10723.pdf](https://arxiv.org/pdf/1710.10723.pdf)
+      **Paper:** [https://arxiv.org/pdf/1710.10723.pdf](https://arxiv.org/pdf/1710.10723.pdf)
 
-  **GitHub:** [https://github.com/allenai/document-qa](https://github.com/allenai/document-qa)
+      **GitHub:** [https://github.com/allenai/document-qa](https://github.com/allenai/document-qa)
 
-  **Demo Link:** [https://documentqa.allenai.org/](https://documentqa.allenai.org/)
+      **Demo Link:** [https://documentqa.allenai.org/](https://documentqa.allenai.org/)
+      
+      
 
-1. **7.**** Our Contribution**
+7. **Our Contribution**
 
-1. We wrote test script for testing static documents - 2\_run\_on\_static\_documents.py
-2. We wrote a flask api server to operationalize the model locally on a Linux DSVM -  3\_run\_flask\_api\_local\_on\_static\_documents.py
-3. We wrote a flask api client to test the model locally on a Linux DSVM - 4\_local\_static\_request.py
-4. Created a bot backend with model - 5\_run\_flask\_api\_bot\_on\_static\_documents.py
-5. We have a bot working with this model as the backend ( **Figure 2** ).
-6. We have the demo working comparing the [open TAGME API](https://tagme.d4science.org/tagme/) and Document-QA models ( **Figure 3** ).
-7. We have a Web option where we run a query using the TAGME API ( **Figure 4** and **6** ).
-8. We have a Document option where we run a query using the TriviaQA-trained Document-QA model on Future Computed book ( **Figure 5** and **7** ).
-9. We see that TAGME API works better for generic questions (like- &quot;How will AI affect jobs&quot;). However, the TriviaQA-trained Document-QA model works better on targeted question from a document (like- &quot;What is AI Law&quot;)
+a. We wrote test script for testing static documents - 2\_run\_on\_static\_documents.py
+b. We wrote a flask api server to operationalize the model locally on a Linux DSVM -  3\_run\_flask\_api\_local\_on\_static\_documents.py
+c. We wrote a flask api client to test the model locally on a Linux DSVM - 4\_local\_static\_request.py
+d. Created a bot backend with model - 5\_run\_flask\_api\_bot\_on\_static\_documents.py
+e. We have a bot working with this model as the backend ( **Figure 2** ).
+f. We have the demo working comparing the [open TAGME API](https://tagme.d4science.org/tagme/) and Document-QA models ( **Figure 3** ).
+g. We have a Web option where we run a query using the TAGME API ( **Figure 4** and **6** ).
+h. We have a Document option where we run a query using the TriviaQA-trained Document-QA model on Future Computed book ( **Figure 5** and **7** ).
+i. We see that TAGME API works better for generic questions (like- &quot;How will AI affect jobs&quot;). However, the TriviaQA-trained Document-QA model works better on targeted question from a document (like- &quot;What is AI Law&quot;)
