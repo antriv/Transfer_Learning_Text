@@ -11,17 +11,15 @@ The SynNet is trained to synthesize the answer and the question, given the parag
 
 3. **SynNet Training Dataset**
 The SynNet model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets.
+To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Finetuning/MSR_QuestionGeneration/Instructions.md)
 
     In this SynNet model, we decompose the process of generating question-answer pairs into two steps:
 
       a. **Answer Synthesis** - **The answer generation conditioned on the paragraph**
     We generate the answer ﬁrst because answers are usually key semantic concepts, while questions can be viewed as a full sentence composed to inquire about the concept. In this approach, based on the supervised data available in one domain, the SynNet first learns a general pattern of identifying potential &quot;interestingness&quot; in an article. These are key knowledge points, named entities, or semantic concepts that are usually answers that people may ask for.
 
-
       b. **Question Synthesis** - **The question generation conditioned on the paragraph and the answer.**
     Then, in the second stage, the model learns to form natural language questions around these potential answers, within the context of the article.
-    
-To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Finetuning/MSR_QuestionGeneration/Instructions.md)
 
 4. **SynNet**  **Test**
 Once trained, the SynNet can be applied to a niche domain, read the documents in the new domain and then generate pseudo questions and answers against these documents. Thus, it forms the necessary training data to train an MRC system or an automated answer generation system for that new domain. Two examples of generated questions and answers from NEWSQA articles are illustrated in **Figure 2**.
