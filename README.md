@@ -192,6 +192,13 @@ We compare the performance in more details below.
     The OpenNMT model training code is not available open source. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
 
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main1.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main3.PNG)
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/maintable1.PNG)
 
 
 
