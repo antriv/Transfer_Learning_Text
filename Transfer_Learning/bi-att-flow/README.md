@@ -1,7 +1,7 @@
 **Evaluating the Bi-Directional Attention Flow (BIDAF) Model**
 
  
-- This the original implementation of [Bi-directional Attention Flow for Machine Comprehension][paper] (Seo et al., 2016).
+- This the original implementation of [Bi-directional Attention Flow for Machine Comprehension](https://arxiv.org/pdf/1611.01603.pdf).
 - Code is adapted from [https://github.com/allenai/bi-att-flow](https://github.com/allenai/bi-att-flow)
 - This is tensorflow v1.2.0 comaptible version.
 - Please contact the original authors for questions and suggestions. 
