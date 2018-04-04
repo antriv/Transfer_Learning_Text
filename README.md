@@ -38,6 +38,9 @@ Recently, several researchers have explored various approaches to attack this MR
 Currently, most state-of-the-art machine reading systems are built on supervised training data–trained end-to-end on data examples, containing not only the articles but also manually labeled questions about articles and corresponding answers. With these examples, the deep learning-based MRC model learns to understand the questions and infer the answers from the article, which involves multiple steps of reasoning and inference. For MRC Transfer Learning, we have 6 models as shown in **Figure 1**.
 
 
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main1.PNG)
+
+
 
 **MRC Fine Tuning**
 
@@ -70,6 +73,12 @@ We use Azure Machine Learning (AML) for deploying the MRC models in local system
 2. Make sure to run az ml env set -n [environment name] -g [resource group] to set up deployment environment
 3. AML Web deployment solution architecture diagram is in **Figure 2**.
 4. Once the deployment environment is setup, run the commands in **Figure 3** to operationalize each MRC model.
+
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
+
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main3.PNG)
 
 
 
@@ -134,6 +143,9 @@ We compare the performance in more details below.
     c. **Our Resource Contribution in GitHub:** [https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/document-qa](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/document-qa)
 
 
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/maintable1.PNG)
+
+
 
 3. **Pros/Cons of using the ReasoNet model for Transfer Learning**
 
@@ -190,15 +202,6 @@ We compare the performance in more details below.
     b. **Cons**
 
     The OpenNMT model training code is not available open source. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
-
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main1.PNG)
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main3.PNG)
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/maintable1.PNG)
 
 
 
