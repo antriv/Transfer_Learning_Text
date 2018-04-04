@@ -1,10 +1,4 @@
 # Bi-directional Attention Flow for Machine Comprehension
- 
-- This the original implementation of [Bi-directional Attention Flow for Machine Comprehension][paper] (Seo et al., 2016).
-- This is tensorflow v1.2.0 comaptible version.
-- Refer to [the original paper][paper] for more details.
-- See [SQuAD Leaderboard][squad] to compare with other models.
-- Please contact the original authors [Minjoon Seo][minjoon] ([@seominjoon][minjoon-github]) for questions and suggestions. 
 
 ## 0. Requirements
 #### General
