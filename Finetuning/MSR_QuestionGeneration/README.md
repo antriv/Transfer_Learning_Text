@@ -1,4 +1,9 @@
-﻿**Evaluating the SynNet Model**
+**Evaluating the SynNet Model**
+
+- This is the implementation of paper [Two-Stage Synthesis Networks for Transfer Learning in Machine
+Comprehension](https://arxiv.org/pdf/1706.09789.pdf)
+- Code is adapted from [https://github.com/davidgolub/QuestionGeneration](https://github.com/davidgolub/QuestionGeneration)
+- Please contact the original authors for questions and suggestions. 
 
 Here we go over a technique for finetuning in machine reading comprehension (MRC) using a novel two-stage synthesis network ( **SynNet** ). Given a high-performing MRC model in one domain, our technique aims to answer questions about documents in another domain, where we use no labeled data of question-answer pairs.
 
