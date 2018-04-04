@@ -1,5 +1,10 @@
 **Evaluating the OpenNMT Model**
 
+- This is the implementation of paper [Learning to Ask: Neural Question Generation for
+Reading Comprehension](https://arxiv.org/pdf/1705.00106.pdf).
+- Code is adapted from [https://github.com/deepmipt/question\_generation](https://github.com/deepmipt/question_generation)
+- Please contact the original authors for questions and suggestions. 
+
 Question generation (QG) aims to create natural questions from a given a sentence or paragraph. One key application of question generation is to generate questions for reading comprehension materials (Heilman and Smith, 2010). Question generation systems can aid in the development of annotated data sets for natural language processing (NLP) research in reading comprehension and question answering.
 
 Here, we introduce an attention-based sequence learning model for the task and investigate the effect of encoding paragraph-level information.
