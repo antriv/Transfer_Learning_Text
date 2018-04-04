@@ -1,5 +1,11 @@
 **Evaluating the Bi-Directional Attention Flow (BIDAF) Model**
 
+ 
+- This the original implementation of [Bi-directional Attention Flow for Machine Comprehension][paper] (Seo et al., 2016).
+- Code is adapted from [https://github.com/allenai/bi-att-flow](https://github.com/allenai/bi-att-flow)
+- This is tensorflow v1.2.0 comaptible version.
+- Please contact the original authors [Minjoon Seo][minjoon] ([@seominjoon][minjoon-github]) for questions and suggestions. 
+
 To accurately answer questions based on a document, we need to be able to model complex interactions between the document and query. This paper by [Seo et. al., 2017](https://arxiv.org/pdf/1611.01603.pdf) uses the Bi-Directional Attention Flow (BiDAF) network to process an attention context that is query aware and represents the document at different levels of granularity. Its main advantage is the bidirectional attention flow, which eliminates the early summarization issue we see with normal uni-directional attentional interfaces. Furthermore, the BiDAF does not use just one context vector (i.e, the summary) but uses vectors from all time steps.
 
 1. **BiDAF Model**
