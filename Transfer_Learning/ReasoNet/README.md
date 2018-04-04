@@ -1,5 +1,10 @@
 **Evaluating the ReasoNet Model**
 
+ 
+- This the original implementation of [ReasoNet: Learning to Stop Reading in Machine Comprehension](https://arxiv.org/pdf/1609.05284.pdf).
+- Private code from authors
+- Please contact the original authors for questions and suggestions. 
+
 In this paper by [Shen et. al., 2017](https://arxiv.org/pdf/1609.05284.pdf), the authors describe a novel neural network architecture called the Reasoning Network (ReasoNet) for machine comprehension tasks. The ReasoNet model mimic the inference process of human readers. With a question in mind, ReasoNets read a document repeatedly, each time focusing on different parts of the document until a satisfying answer is found or formed.
 
 ReasoNets make use of multiple turns to effectively exploit and then reason over the relation among queries, documents, and answers. Different from previous approaches using a fixed number of turns during inference, ReasoNets introduce a termination state to relax this constraint on the reasoning depth. With the use of reinforcement learning, ReasoNets can dynamically determine whether to continue the comprehension process after digesting intermediate results, or to terminate reading when it concludes that existing information is adequate to produce an answer.
