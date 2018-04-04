@@ -6,29 +6,29 @@ To accurately answer questions based on a document, we need to be able to model 
 
 The model consists of six different layers as shown in **Figure 1**.
 
-1. **BiDAF Model Layers**
+2. **BiDAF Model Layers**
 
-1. **a.**** Character-Level Embedding**
+**a.**** Character-Level Embedding**
 
 A char-CNN used to map each word to an embedding.
 
-1. **b.**** Word-Level Embedding**
+**b.**** Word-Level Embedding**
 
 Pretrained GLOVE embeddings are used to map each word to a vector.
 
-1. **c.**** Phrase-Level Embedding**
+**c.**** Phrase-Level Embedding**
 
 Uses char-level and word-level embedding layers to refine the embeddings of words using context from other words.
 
-1. **d.**** Attentional Interface**
+**d.**** Attentional Interface**
 
 Uses the query and document vectors from previous three layers to produce query aware feature vectors for each word in the document. Basically, we are trying to create a higher representation for each word in the document that is query aware, so we can get the right answer.
 
-1. **e.**** Modeling Layer**
+**e.**** Modeling Layer**
 
 Uses an RNN to scan the document.
 
-1. **f.**** Output Layer**
+**f.**** Output Layer**
 
 Gives us the answer to the query.
 
