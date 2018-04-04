@@ -30,5 +30,5 @@ Once trained, the SynNet can be applied to a niche domain, read the documents in
 Instead of trying to generate QA pairs on multiple disjoint small paragraphs, we wanted to create a QA-Bot our Future Computed book corpus. However, the open GitHub code does not allow custom corpuses to be converted to a target corpus. The authors manually created the NewsQA dataset as target corpus for testing. Thus, we could not test the performance of this model on our book test corpus. We are currently working on creating a way to convert our book corpus to a format where SynNet could be tested on this. If we are successful, we will merge the method to the open SynNet GitHub.
 
 6. **Existing Resource:**
-Paper: [https://arxiv.org/pdf/1706.09789.pdf](https://arxiv.org/pdf/1706.09789.pdf)
-Github: [https://github.com/davidgolub/QuestionGeneration](https://github.com/davidgolub/QuestionGeneration)
+        a. Paper: [https://arxiv.org/pdf/1706.09789.pdf](https://arxiv.org/pdf/1706.09789.pdf)
+        b. Github: [https://github.com/davidgolub/QuestionGeneration](https://github.com/davidgolub/QuestionGeneration)
