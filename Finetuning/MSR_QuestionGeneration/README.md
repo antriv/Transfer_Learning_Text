@@ -20,6 +20,8 @@ The SynNet model is trained on [Standford Question Answering Dataset (SQUAD)](ht
 
       b. **Question Synthesis** - **The question generation conditioned on the paragraph and the answer.**
     Then, in the second stage, the model learns to form natural language questions around these potential answers, within the context of the article.
+    
+To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Finetuning/MSR_QuestionGeneration/Instructions.md)
 
 4. **SynNet**  **Test**
 Once trained, the SynNet can be applied to a niche domain, read the documents in the new domain and then generate pseudo questions and answers against these documents. Thus, it forms the necessary training data to train an MRC system or an automated answer generation system for that new domain. Two examples of generated questions and answers from NEWSQA articles are illustrated in **Figure 2**.
