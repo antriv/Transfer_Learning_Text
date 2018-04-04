@@ -4,9 +4,12 @@ In this paper by [Shen et. al., 2017](https://arxiv.org/pdf/1609.05284.pdf), the
 
 ReasoNets make use of multiple turns to effectively exploit and then reason over the relation among queries, documents, and answers. Different from previous approaches using a fixed number of turns during inference, ReasoNets introduce a termination state to relax this constraint on the reasoning depth. With the use of reinforcement learning, ReasoNets can dynamically determine whether to continue the comprehension process after digesting intermediate results, or to terminate reading when it concludes that existing information is adequate to produce an answer.
 
-1. **1.**** The ReasoNet Model**
+1. **The ReasoNet Model**
 
 The model consists of five different layers as Shown in **Figure 1**.
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/ReasoNet/screenshots/reasonet1.PNG)
+
 
 2. **ReasoNet Model Layers**
 
@@ -32,7 +35,7 @@ The model consists of five different layers as Shown in **Figure 1**.
   
   
 
-3. **ReasoNet **** Training Dataset**
+3. **ReasoNet Training Dataset**
 
 There are three training datasets for the ReasoNet model. We can use any of them to train the model.
 
@@ -42,9 +45,9 @@ There are three training datasets for the ReasoNet model. We can use any of them
   
   c. Recent analysis and results on the cloze-style machine comprehension tasks have suggested some simple models without multiturn reasoning can achieve reasonable performance. Based on these results, a synthetic structured Graph Reachability dataset is constructed to evaluate longer range machine inference and reasoning capability. This dataset allows ReasoNets to have the capability to handle long range relationships. Here we have 2 two synthetic datasets -
   
-      i. A small graph dataset containing 500K small graphs, where each graph contains 9 nodes and 16 direct edges to randomly connect pairs of nodes.
+   i. A small graph dataset containing 500K small graphs, where each graph contains 9 nodes and 16 direct edges to randomly connect pairs of nodes.
       
-      ii. A large graph dataset containing 500K graphs, where each graph contains 18 nodes and 32 random direct edges.
+   ii. A large graph dataset containing 500K graphs, where each graph contains 18 nodes and 32 random direct edges.
 
 
 
@@ -52,9 +55,13 @@ There are three training datasets for the ReasoNet model. We can use any of them
 
 The ReasoNet paper authors provided us with a SQUAD-trained ReasoNet model and some sample demo code ( **Figure 2** ).
 
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/ReasoNet/screenshots/reasonet2.PNG)
+
+
 5. **Creating a QA-Bot with SynNet model for our comparison study**
 
 Instead of trying to generate answers on multiple disjoint small paragraphs, we wanted to create a QA-Bot our Future Computed book corpus. However, the ReasoNet model in its current form does not work for a large corpus. Given a larger paragraph, this model usually takes a very long time and comes back with a probable span as an answer which might not make any sense at all.
+
 
 6. **Existing Resources**
 
