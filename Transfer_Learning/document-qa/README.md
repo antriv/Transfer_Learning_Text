@@ -1,181 +1,73 @@
-## Document QA
-This repo contains code for our paper [Simple and Effective Multi-Paragraph Reading Comprehension](https://arxiv.org/abs/1710.10723).
-It can be used to  train neural question answering models in tensorflow, 
-and in particular for the case when we want to run the model over multiple paragraphs for 
-each question. Code is included to train on the [TriviaQA](http://nlp.cs.washington.edu/triviaqa/) 
-and [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) datasets.
+**Evaluating the Document-QA Model**
 
-A demo of this work can be found at [documentqa.allenai.org](https://documentqa.allenai.org)
+This model, by [Clark et. al., 2017](https://arxiv.org/pdf/1710.10723.pdf), considers the problem of adapting neural paragraph-level question answering models to the case where entire documents are given as input. Here the authors proposed a solution that trains models to produce well calibrated confidence scores for their results on individual paragraphs. This model sample multiple paragraphs from the documents during training and use a shared normalization training objective that encourages the model to produce globally correct output. Next, this method is combined with a state-of-the-art pipeline for training models on document QA data.
 
-Small forewarning, this is still much more of a research codebase then a library.
-we anticipate porting this work in [allennlp](https://github.com/allenai/allennlp) where it will 
-enjoy a cleaner implementation and more stable support.
+1. **1.**** Document-QA Model**
 
+The model consists of six different layers as shown in **Figure 1**.
 
-## Setup
-### Dependencies
-We require python >= 3.5, tensorflow 1.3, and a handful of other supporting libraries. 
-Tensorflow should be installed separately following the docs. To install the other dependencies use
+1. **2.**** Document-QA Model Layers**
 
-`pip install -r requirements.txt`
+1. **a.**** Embedding**
 
-The stopword corpus and punkt sentence tokenizer for nltk are needed and can be fetched with:
- 
- `python -m nltk.downloader punkt stopwords`
- 
-The easiest way to run this code is to use:
+Embed words using pretrained word vectors. Also embed the characters in each word into size 20 vectors which are learned. Then run a convolution neural network followed by max-pooling to get character-derived embeddings for each word. The character-level and word-level embeddings are then concatenated and passed to the next layer. The word embeddings are not updated during training.
 
-``export PYTHONPATH=${PYTHONPATH}:`pwd` ``
+1. **b.**** Pre-Process**
 
-### Data
-By default, we expect source data to be stored in "\~/data" and preprocessed data to be
-stored in "./data". The expected file locations can be changed by altering config.py.
- 
+A shared bi-directional GRU, as described by  [Cho et al., 2014](https://arxiv.org/pdf/1406.1078.pdf), is used to map the question and passage embeddings to context-aware embeddings.
 
-#### Word Vectors
-The models we train use the common crawl 840 billion token GloVe word vectors from [here](https://nlp.stanford.edu/projects/glove/).
-They are expected to exist in "\~/data/glove/glove.840B.300d.txt" or "\~/data/glove/glove.840B.300d.txt.gz".
+1. **c.**** Attention**
 
-For example:
+The BiDAF model, by  [Seo et al., 2016](file:///h), is used to build a query-aware context representation.
 
-```
-mkdir -p ~/data
-mkdir -p ~/data/glove
-cd ~/data/glove
-wget http://nlp.stanford.edu/data/glove.840B.300d.zip
-unzip glove.840B.300d.zip
-rm glove.840B.300d.zip
-```
+1. **d.**** Self-Attention**
 
-#### SQuAD Data
-Training or testing on SQuAD requires downloading the SQuAD train/dev files into ~/data/squad.
-This can be done as follows:
+Uses a layer of residual self-attention. The input is passed through another bi-directional GRU. Then we apply the same attention mechanism, only now between the passage and itself. In this case we do not use query-to-context attention. As before, we pass the concatenated output through a linear layer with ReLU activations. This layer is applied residually, so this output is additionally summed with the input.
 
-```
-mkdir -p ~/data/squad
-cd ~/data/squad
-wget https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json
-wget https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.json
-```
+1. **e.**** Prediction**
 
-then running:
+In the last layer of this model a bidirectional GRU is applied, followed by a linear layer that computes answer-start scores for each token. The hidden states of that layer are concatenated with the input and fed into a second bidirectional GRU and linear layer to predict answer-end scores. The SoftMax operation is applied to the start and end scores to produce start and end probabilities, and we optimize the negative loglikelihood of selecting correct start and end tokens.
 
-``python docqa/squad/build_squad_dataset.py``
+1. **f.**** Dropout**
 
-This builds pkl files of the tokenized data in "./data/squad"
+This model also employs variational dropout, where a randomly selected set of hidden units are set to zero across all time steps during training. We dropout the input to all the GRUs, including the word embeddings, as well as the input to the attention mechanisms.
 
-#### TriviaQA Data
-The raw TriviaQA data is expected to be unzipped in "\~/data/triviaqa". Training
-or testing in the unfiltered setting requires the unfiltered data to be 
-download to "\~/data/triviaqa-unfiltered".
+1. **3.**** Document-QA **** Training Dataset**
 
-```
-mkdir -p ~/data/triviaqa
-cd ~/data/triviaqa
-wget http://nlp.cs.washington.edu/triviaqa/data/triviaqa-rc.tar.gz
-tar xf triviaqa-rc.tar.gz
-rm triviaqa-rc.tar.gz
+There are two training datasets for the Document-QA model. We can use either of them to train the model.
 
-cd ~/data
-wget http://nlp.cs.washington.edu/triviaqa/data/triviaqa-unfiltered.tar.gz
-tar xf triviaqa-unfiltered.tar.gz
-rm triviaqa-unfiltered.tar.gz
-```
+1. **a.** Document-QA is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/) as just as the BiDAF model described above. Please refer above sections for more SQUAD dataset details.
+2. **b.** Document-QA is trained on [TriviaQA](http://nlp.cs.washington.edu/triviaqa/) by [Joshi et. Al., 2017](https://arxiv.org/pdf/1705.03551.pdf). TriviaQA is a challenging reading comprehension dataset containing over 650K question-answer-evidence triples. TriviaQA includes 95K question-answer pairs authored by trivia enthusiasts and independently gathered evidence documents, six per question on average, that provide high quality distant supervision for answering the questions. In comparison to other recently introduced large-scale datasets, TriviaQA has –
+  - Relatively complex, compositional questions
+  - Considerable syntactic and lexical variability between questions and                                       corresponding answer-evidence sentences
+  - Requires more cross sentence reasoning to find answers
 
-To use TriviaQA we need to tokenize the evidence documents, which can be done by
+1. **4.**** Document-QA Test**
 
-`python docqa/triviaqa/evidence_corpus.py`
-
-This can be slow, we support multi-processing
-
-`python docqa/triviaqa/evidence_corpus.py --n_processes 8`
-
-This builds evidence files in "./data/triviaqa/evidence" that are split into 
-paragraphs, sentences, and tokens. Then we need to tokenize the questions and locate the relevant 
-answers spans in each document. Run
-
-`python docqa/triviaqa/build_span_corpus.py {web|wiki|open} --n_processes 8`
-
-to build the desired set. This builds pkl files "./data/triviaqa/{web|wiki|open}"
+There is a public [Document-QA Demo Link](https://documentqa.allenai.org/) available for testing the TriviaQA-trained Document-QA model ( **Figure 8** ). In this demo, you can ask a question to the web documents by choosing the web option, or to some paragraph by choosing the text option, or to some document by choosing the document option.
 
 
-## Training
-Once the data is in place our models can be trained by
 
-`python docqa/scripts/ablate_{triviaqa|squad|triviaqa_wiki|triviaqa_unfiltered}.py`
+1. **5.**** Creating a QA-Bot with TriviaQA-trained Document-QA model for our comparison study**
 
+Instead of trying QA on multiple disjoint documents, we wanted to create a QA-Bot for a big corpus using the TriviaQA-trained Document-QA model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI).
 
-See the help menu for these scripts for more details. Note that since we use the Cudnn RNN implementations,
-these models can only be trained on a GPU. We do provide a script for converting
-the (trained) models to CPU versions:
+1. **6.**** Existing Resources**
 
-`python docqa/scripts/convert_to_cpu.py`
+**Paper:** [https://arxiv.org/pdf/1710.10723.pdf](https://arxiv.org/pdf/1710.10723.pdf)
 
-Modifying the hyper-parameters beyond the ablations requires building your own train script.
+**GitHub:** [https://github.com/allenai/document-qa](https://github.com/allenai/document-qa)
 
-## Testing
-### SQuAD
-Use "docqa/eval/squad_eval.py" to evaluate on paragraph-level (i.e., standard) SQuAD. For example:
+**Demo Link:** [https://documentqa.allenai.org/](https://documentqa.allenai.org/)
 
-`python docqa/eval/squad_eval.py -o output.json -c dev /path/to/model/directory`
+1. **7.**** Our Contribution**
 
-"output.json" can be used with the official evaluation script, for example:
-
-`python docqa/squad/squad_official_evaluation.py ~/data/squad/dev-v1.1.json output.json`
-
-Use "docqa/eval/squad_full_document_eval.py" to evaluate on the document-level. For example
-
-`python docqa/eval/squad_full_document_eval.py -c dev /path/to/model/directory output.csv`
-
-This will store the per-paragraph results in output.csv, we can then run:
-
-`python docqa/eval/ranked_scores.py output.csv`
-
-to get ranked scores as more paragraphs are used.
-
-
-### TriviaQA
-Use "docqa/eval/triviaqa_full_document_eval.py" to evaluate on TriviaQA datasets, like:
- 
-`python docqa/eval/triviaqa_full_document_eval.py --n_processes 8 -c web-dev --tokens 800 -o question-output.json -p paragraph-output.csv /path/to/model/directory`
-
-Then the "question-output.json" can be used with the standard triviaqa evaluation [script](https://github.com/mandarjoshi90/triviaqa), 
-the "paragraph-output.csv" contains per-paragraph output, we can run  
-
-`python docqa/eval/ranked_scores.py paragraph-output.csv`
-
-to get ranked scores as more paragraphs as used for each question, or 
-
-`python docqa/eval/ranked_scores.py --per_doc paragraph-output.csv`
-
-to get ranked scores as more paragraphs as used for each (question, document) pair,
-as should be done for TrivaQA web.
-
-
-### User Input
-"docqa/scripts/run_on_user_documents.py" serves as a heavily commented example of how to run our models 
-and pre-processing pipeline on other kinds of text. For example:
- 
- `python docqa/scripts/run_on_user_documents.py /path/to/model/directory 
- "Who wrote the satirical essay 'A Modest Proposal'?"  
- ~/data/triviaqa/evidence/wikipedia/A_Modest_Proposal.txt 
- ~/data/triviaqa/evidence/wikipedia/Jonathan_Swift.txt`
- 
-## Pre-Trained Models
-We have four pre-trained models
-
-1. "squad" Our model trained on the standard SQuAD dataset, this model is listed on the SQuAD leaderboard 
-as BiDAF + Self Attention
-
-2. "squad-shared-norm" Our model trained on document-level SQuAD using the shared-norm approach. 
-
-3. "triviaqa-web-shared-norm" Our model trained on TriviaQA web with the shared-norm approach. This 
-is the model we used to submit scores to the TriviaQA leader board.
- 
-4. "triviaqa-unfiltered-shared-norm" Our model trained on TriviaQA unfiltered with the shared-norm approach.
-This is the model that powers our demo.
-
-The models can be downloaded [here](https://drive.google.com/open?id=1Hj9WBQHVa__bqoD5RIOPu2qDpvfJQwjR)
-
-The models use the cuDNN implementation of GRUs by default, which means they can only be run on
-the GPU. We also have slower, but CPU compatible, versions [here](https://drive.google.com/open?id=1NRmb2YilnZOfyKULUnL7gu3HE5nT0sMy).
+1. We wrote test script for testing static documents - 2\_run\_on\_static\_documents.py
+2. We wrote a flask api server to operationalize the model locally on a Linux DSVM -  3\_run\_flask\_api\_local\_on\_static\_documents.py
+3. We wrote a flask api client to test the model locally on a Linux DSVM - 4\_local\_static\_request.py
+4. Created a bot backend with model - 5\_run\_flask\_api\_bot\_on\_static\_documents.py
+5. We have a bot working with this model as the backend ( **Figure 2** ).
+6. We have the demo working comparing Bing Search API and Document-QA models ( **Figure 3** ).
+7. We have a Web option where we run a query using Bing Search API ( **Figure 4** and **6** ).
+8. We have a Document option where we run a query using the TriviaQA-trained Document-QA model on Future Computed book ( **Figure 5** and **7** ).
+9. We see that Bing Search API works better for generic questions (like- &quot;How will AI affect jobs&quot;). However, the TriviaQA-trained Document-QA model works better on targeted question from a document (like- &quot;What is AI Law&quot;)
