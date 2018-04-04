@@ -31,5 +31,6 @@ Instead of trying to generate QA pairs on multiple disjoint small paragraphs, we
 
 6. **Existing Resource:**
 
-        a. Paper: [https://arxiv.org/pdf/1706.09789.pdf](https://arxiv.org/pdf/1706.09789.pdf)
-        b. Github: [https://github.com/davidgolub/QuestionGeneration](https://github.com/davidgolub/QuestionGeneration)
+     Paper: [https://arxiv.org/pdf/1706.09789.pdf](https://arxiv.org/pdf/1706.09789.pdf)
+     
+     Github: [https://github.com/davidgolub/QuestionGeneration](https://github.com/davidgolub/QuestionGeneration)
