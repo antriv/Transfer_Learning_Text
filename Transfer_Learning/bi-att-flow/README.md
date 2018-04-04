@@ -6,7 +6,7 @@ To accurately answer questions based on a document, we need to be able to model 
 
 The model consists of six different layers as shown in **Figure 1**.
 
-![alt text]()
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/bi-att-flow/screenshots/bidaf1.PNG)
 
 
 2. **BiDAF Model Layers**
@@ -31,22 +31,22 @@ Uses the query and document vectors from previous three layers to produce query 
 
 3. **BiDAF Training Dataset**
 
-The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets. To train the model, please follow instrucion [here in the original GitHub]()
+The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets. To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/bi-att-flow/Instructions.md)
 
 4. **BiDAF Test**
 
 There is a public [BiDAF Demo Link](http://35.165.153.16:1995/) available for testing the trained BiDAF model ( **Figure 2** ). Here in Figure 3, we can enter any paragraph to test. In the question section, we can add a question we want to ask about the paragraph on the left. The trained BiDAF model selects the best probable span from the paragraph as an answer to the query we put in and this span is displayed in the answer section.
 
-![alt text]()
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/bi-att-flow/screenshots/bidaf2.PNG)
 
 5. **Creating a QA-Bot with BiDAF model for our comparison study**
 
 Instead of trying QA on multiple disjoint small paragraphs, we wanted to create a QA-Bot for a big corpus using the trained BiDAF model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI) ( **Figure**** 3**).
 
-![alt text]()
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/bi-att-flow/screenshots/bidaf3.PNG)
 
 
-1. **Existing Resources**
+6. **Existing Resources**
 
     **Paper:** [https://arxiv.org/pdf/1611.01603.pdf](https://arxiv.org/pdf/1611.01603.pdf)
 
@@ -54,14 +54,3 @@ Instead of trying QA on multiple disjoint small paragraphs, we wanted to create 
 
     **Demo Link:** [http://allgood.cs.washington.edu:1995/](http://allgood.cs.washington.edu:1995/)
     
-
-1. **Our Contribution**  **-**   [https://github.com/antriv/bi-att-flow](https://github.com/antriv/bi-att-flow)
-
-1. We have converted code to TF 1.2 v from TF 0.12 v.
-2. We have the demo link working with latest TF 1.2v
-3. We wrote script for testing any custom paragraph - 1\_comprehend.py
-4. We wrote script for testing any static paragraph- 2\_comprehend\_static.py
-5. We wrote a flask api server to operationalize the model locally on a Linux DSVM- 3\_comprehend\_future\_computed\_run\_flask\_server\_local.py
-6. We wrote a flask api client to test the model locally on a Linux DSVM - 4\_comprehend\_future\_computed\_request\_local.py
-7. Created a bot backend with model- 5\_comprehend\_future\_computed\_run\_flask\_server\_bot.py
-8. We have a bot working with this model as the backend. ( **Figure 3** )
