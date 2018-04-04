@@ -181,8 +181,9 @@ We compare the performance in more details below.
 
     Using the OpenNMT model, we were able to get most accurate results till date on a niche domain without any additional training data, approaching to the performance of a fully supervised MRC system. OpenNMT works in two stages:
 
-     **i.** Answer Synthesis - Given a text paragraph, generate an answer.
-     **ii.** Question Synthesis - Given a text paragraph and an answer, generate a question.
+      **i.** Answer Synthesis - Given a text paragraph, generate an answer.
+
+      **ii.** Question Synthesis - Given a text paragraph and an answer, generate a question.
 
     Once we get the generated QA pairs from a new domain, we can also train a Seq2Seq model on this QA pairs to generate more human-like Conversation AI approach from MRC.
 
