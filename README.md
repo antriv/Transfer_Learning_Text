@@ -63,7 +63,17 @@ To build all the MRC models, we use the following tools and Platform –
 
   **1.** We use [DSVM](https://azure.microsoft.com/en-us/services/virtual-machines/data-science-virtual-machines/) as the compute environment with a NVIDIA Tesla K80 GPU, CUDA and cuDNN libraries.
 
-  **2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create 3 deep learning models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
+  **2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create the MRC models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
+
+## Prerequisites:
+```
+pip install <dependencies>
+```
+## Experimentation steps:
+To install and create the experimentation framework using AML, please follow the simple tutorial here (https://docs.microsoft.com/en-us/azure/machine-learning/preview/quickstart-installation). Once the code is setup in AML- 
+1) We run the training code for training the model
+2) This produces a trained model
+3) We then run the scoring code to test the accuracy of the trained model
 
 <br />
 <br />
