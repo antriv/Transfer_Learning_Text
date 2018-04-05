@@ -7,11 +7,6 @@ and [SQuAD](https://rajpurkar.github.io/SQuAD-explorer/) datasets.
 
 A demo of this work can be found at [documentqa.allenai.org](https://documentqa.allenai.org)
 
-Small forewarning, this is still much more of a research codebase then a library.
-we anticipate porting this work in [allennlp](https://github.com/allenai/allennlp) where it will 
-enjoy a cleaner implementation and more stable support.
-
-
 ## Setup
 ### Dependencies
 We require python >= 3.5, tensorflow 1.3, and a handful of other supporting libraries. 
