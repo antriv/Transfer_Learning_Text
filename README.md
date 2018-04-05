@@ -1,8 +1,6 @@
 **Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
-
 <br />
 <br />
-
 **Introduction**
 
 Modern machine learning models, especially deep neural networks, often significantly benefit from transfer learning. In computer vision, deep convolutional neural networks trained on a large image classification dataset such as ImageNet have proved to be useful for initializing models on other vision tasks, such as object detection (Zeiler and Fergus, 2014).
@@ -79,15 +77,21 @@ We use Azure Machine Learning (AML) for deploying the MRC models in local system
 1. Make sure to run az login before the environment setup step.
 2. Make sure to run az ml env set -n [environment name] -g [resource group] to set up deployment environment
 3. AML Web deployment solution architecture diagram is in **Figure 2**.
-4. Once the deployment environment is setup, run the commands in **Figure 3** to operationalize each MRC model.
-
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
-
 <br />
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main3.PNG)
-
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
+<br />
+4. Once the deployment environment is setup, run the commands below to operationalize the MRC model.
+<br />
+```
+az ml service create realtime\
+-f scoring_code.py\
+-model-file model.pkl\
+-s service schema.json\
+-n azure_AI_model_api\
+-r python\
+-collect-model-data true\
+-c aml_config\conda_dependencies.yml
+```
 <br />
 <br />
 
@@ -125,7 +129,7 @@ In this blog, we investigated the performance of four different MRC methodologie
 Our evaluation scenario shows that the performance of the **OpenNMT** fine-tuning approach outperforms that of plain transfer learning MRC mechanisms for domain-specific datasets. However, for generic large articles, the **Document-QA** model outperforms **BIDAF** , **ReasoNet** and **R-NET** models.
 
 We compare the performance in more details below.
-
+<br />
 1. **Pros/Cons of using the BiDAF model for Transfer Learning**
 
     a. **Pros**
@@ -138,7 +142,7 @@ We compare the performance in more details below.
 
     c. **Our Resource Contribution**  **in GitHub:** [**https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/bi-att-flow**](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/bi-att-flow)
 
-
+<br />
 
 2. **Pros/Cons of using the Document-QA model for Transfer Learning**
 
@@ -155,7 +159,7 @@ We compare the performance in more details below.
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/maintable1.PNG)
 
-
+<br />
 
 3. **Pros/Cons of using the ReasoNet model for Transfer Learning**
 
@@ -171,7 +175,7 @@ We compare the performance in more details below.
 
     **GitHub:** We added some Demo code for this work. But no public GitHub code available for this.
 
-
+<br />
 
 4. **Pros/Cons of using the R-NET model for Transfer Learning**
 
@@ -183,7 +187,7 @@ We compare the performance in more details below.
 
     For data-driven approach, labeled data might become the bottleneck for better performance. While texts are abundant, it is not easy to find question-passage pairs that match the style of SQuAD. To generate more data, R-NET model authors trained a sequence-to-sequence question generation model using SQuAD dataset and produced a large amount of pseudo question-passage pairs from English Wikipedia. But analysis shows that the quality of generated questions needs improvement. R-NET works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
-
+<br />
 
 5. **Pros/Cons of using the SynNet model for Finetuning**
 
@@ -195,7 +199,7 @@ We compare the performance in more details below.
 
     The SynNet model has very restricted usage. It is hard to run the open existing code on a custom paragraph/text. IT needs a lot of manual data processing, and the steps are not clear from this open GitHub link. Thus, we could not test it on our test book corpus.
 
-
+<br />
 
 6. **Pros/Cons of using the OpenNMT model for Finetuning**
 
