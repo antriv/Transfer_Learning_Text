@@ -37,7 +37,7 @@ Uses the query and document vectors from previous three layers to produce query 
 
 3. **BiDAF Training Dataset**
 
-The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets. To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/bi-att-flow/Instructions.md)
+The BiDAF model is trained on [Standford Question Answering Dataset (SQUAD)](https://rajpurkar.github.io/SQuAD-explorer/). SQUAD is a new reading comprehension dataset, consisting of questions posed by crowd-workers on a set of Wikipedia articles, where the answer to every question is a segment of text, or _span_, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets. To train the model, please follow instrucion [in the link here](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/bi-att-flow/Instructions.md)
 
 4. **BiDAF Test**
 
