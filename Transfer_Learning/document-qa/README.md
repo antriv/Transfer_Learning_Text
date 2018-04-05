@@ -53,7 +53,7 @@ There are two training datasets for the Document-QA model. We can use either of 
   - Requires more cross sentence reasoning to find answers
 
 
-To train the model, please follow instrucion [here in the original GitHub](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/Instructions.md)
+To train the model, please follow instrucion [in the link here](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/Instructions.md)
 
 
 4. **Document-QA Test**
