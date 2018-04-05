@@ -24,8 +24,7 @@ You can change the hyperparameters from params.py file to fit the model in your 
 $ python model.py
 ```
 To test or debug your model after training, change mode="train" to debug or test from params.py file and run the model.
-
-**To use demo, put batch size = 1**
+To demo using your model after training, change mode="demo" from params.py file and run the model. To use demo, put batch size = 1.
 
 # Tensorboard
 Run tensorboard for visualisation.
