@@ -88,7 +88,7 @@ We use Azure Machine Learning (AML) for deploying the MRC models in local system
 2. Make sure to run az ml env set -n [environment name] -g [resource group] to set up deployment environment
 3. AML Web deployment solution architecture diagram is in **Figure 2**.
 
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/deploymentarchitecture.PNG)
 
 4. Once the deployment environment is setup, run the commands below to operationalize the MRC model.
 ```
