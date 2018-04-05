@@ -1,6 +1,7 @@
 **Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
 
-
+<br />
+<br />
 
 **Introduction**
 
@@ -14,23 +15,26 @@ In this blog, we are particularly interested in the context-aware QA paradigm, w
 
 In this blog, we attempt to capture a comprehensive study of existing MRC transfer learning literature in the research community. We came across seven popular MRC algorithms ( **Figure 1** ).  In our work, we evaluate and compare six of these papers – **BIDAF** , **DOCQA** , **ReasoNet** , **R-NET** , **SynNet** and **OpenNMT**. We initialize our models, pretrained on different source QA datasets, and show how standard transfer learning can achieve results on a large target corpus.
 
+<br />
+<br />
 
-
-**Why is Conversation AI important for enterprises?**
+**Why is Machine Reading Comprehension (MRC) important for enterprises?**
 
 Enterprise chatbots have been on the rise for some time now. Chatbots can simplify applications for users. For example, rather than navigating through an interface or website to find information, users can just say or type what they want. Users can also compress multistep tasks into a single command, such as, &quot;Get my list of open opportunities this quarter, and send it to John Smith.&quot; Chatbots allow for non-expert users to interact with many complex applications in an intuitive fashion from a single interface. This gives rise to powerful automation opportunities, where chatbots trigger actions and orchestrate processes across a range of applications through the course of dialogue in natural language. The business impacts can include reducing costs by increasing self-service, improving end-user experience and satisfaction, delivering relevant information faster, and increasing compliance with internal procedures.
 
-To advance the Enterprise Chatbot scenarios, research and industry has turned toward Conversational AI approaches, especially in complex use cases such as banking, insurance and telecommunications. Beyond chatbot capabilities, Conversational AI strives to understand complex sentences of human speech in the same way humans do. Real human conversation is never straightforward - it is full of imperfections consisting of multi-string words, abbreviations, fragments, mispronunciations and a host of other issues. Conversational AI is a form of technology that can be used to both navigate and comprehend these give-and-take interactions. Intelligent conversational interfaces are the simplest way for businesses to interact with devices, services, customers, suppliers and employees everywhere. Intelligent assistants built on these conversational AI platforms can be taught and continue to learn every day.
+To advance the Enterprise Chatbot scenarios, research and industry has turned toward Conversational AI approaches, especially in complex use cases such as banking, insurance and telecommunications. Beyond chatbot capabilities, Conversational AI strives to understand complex sentences of human speech in the same way humans do. Real human conversation is never straightforward - it is full of imperfections consisting of multi-string words, abbreviations, fragments, mispronunciations and a host of other issues. Intelligent conversational interfaces are the simplest way for businesses to interact with devices, services, customers, suppliers and employees everywhere. Intelligent assistants built on these approaches can be taught and continue to learn every day.
 
-**Machine Reading Comprehension (MRC)**is an integral component for solving the Conversational AI problem we face today. Today MRC approaches can answer objective questions such as _&quot;what causes rain&quot;_ with high accuracy. Such approaches can be used in real-world applications like customer service.
+**Machine Reading Comprehension (MRC)** is an integral component for solving the Conversational AI problem we face today. Today MRC approaches can answer objective questions such as _&quot;what causes rain&quot;_ with high accuracy. Such approaches can be used in real-world applications like customer service.
 
-
+<br />
+<br />
 
 **Machine Reading Comprehension (MRC)**
 
 MRC is about answering a query about a given context paragraph. MRC requires modeling complex interactions between the context and the query. Recently, attention mechanisms have been successfully extended to MRC. Typically, these methods use attention to focus on a small portion of the context and summarize it with a fixed-size vector, couple attentions temporally, and/or often form a unidirectional attention. It has been shown that these MRC models perform well for transfer learning and finetuning of text for a new domain.
 
-
+<br />
+<br />
 
 **MRC Transfer Learning**
 
@@ -40,7 +44,8 @@ Currently, most state-of-the-art machine reading systems are built on supervised
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main1.PNG)
 
-
+<br />
+<br />
 
 **MRC Fine Tuning**
 
@@ -51,7 +56,8 @@ The MRC transfer learning works very well for generic articles. However, for man
 
 The idea of generating synthetic data to augment insufﬁcient training data has been explored before. For the target task of translation, [Sennrich et.al., 2016](https://arxiv.org/abs/1511.06709)  proposed to generate synthetic translations given real sentences to reﬁne an existing machine translation system. However, unlike machine translation, for tasks like MRC, we need to synthesize both questions and answers for an article. Moreover, while the question is a syntactically ﬂuent natural language sentence, the answer is mostly a salient semantic concept in the paragraph, such as a named entity, an action, or a number. Since the answer has a different linguistic structure than the question, it may be more appropriate to view answers and questions as two diverse types of data. A novel model called **SynNet** has been proposed by [Golub et. al. 2017](https://arxiv.org/pdf/1706.09789.pdf), to address this critical need. OpenNMT also has a finetuning method implemented by [Xinya Du et. al., 2017](https://arxiv.org/pdf/1705.00106.pdf).
 
-
+<br />
+<br />
 
 **Microsoft AI Platform for training the MRC models**
 
@@ -61,7 +67,8 @@ To build all the MRC models, we use the following tools and Platform –
 
   **2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create 3 deep learning models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
 
-
+<br />
+<br />
 
 **Operationalize trained MRC models on Azure for evaluation**
 
@@ -77,10 +84,12 @@ We use Azure Machine Learning (AML) for deploying the MRC models in local system
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main2.PNG)
 
+<br />
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main3.PNG)
 
-
+<br />
+<br />
 
 **Evaluation Approach**
 
@@ -106,7 +115,8 @@ Please refer to the detailed blogs below for evaluation of each MRC Model on our
 
 Our comparison work is summarized below.
 
-
+<br />
+<br />
 
 **Learnings from our evaluation work**
 
@@ -203,7 +213,8 @@ We compare the performance in more details below.
 
     The OpenNMT model training code is not available open source. It works well only on a small paragraph. Given a larger paragraph or many small paragraphs, this model usually takes a long time and comes back with a probable span as an answer which might not make any sense at all.
 
-
+<br />
+<br />
 
 **Conclusion**
 
