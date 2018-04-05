@@ -148,13 +148,29 @@ as should be done for TrivaQA web.
 
 
 ### User Input
-"docqa/scripts/run_on_user_documents.py" serves as a heavily commented example of how to run our models 
+"docqa/scripts/1_run_on_user_documents.py" serves as a heavily commented example of how to run our models 
 and pre-processing pipeline on other kinds of text. For example:
  
- `python docqa/scripts/run_on_user_documents.py /path/to/model/directory 
+ `python docqa/scripts/1_run_on_user_documents.py /path/to/model/directory 
  "Who wrote the satirical essay 'A Modest Proposal'?"  
  ~/data/triviaqa/evidence/wikipedia/A_Modest_Proposal.txt 
  ~/data/triviaqa/evidence/wikipedia/Jonathan_Swift.txt`
+ 
+## Demo on static document
+You may try any question by keeping the paragraph content constant. Here we use Harry Shum's Book "Future Computed" as out static document. 
+`python docqa/scripts/2_run_on_static_documents.py /path/to/model/directory 
+ "What is AI Law?"`
+
+## Bot Experience on static document
+You may create a bot using your own paragraph/document. Here we use Harry Shum's Book "Future Computed" as out static document. 
+Now, we need to operationalize the model on this document. We use python Flask API to operationalize the model locally.
+```
+python 3_run_flask_api_local_on_static_documents.py 
+```
+This operationalizes the model at port 5000. To test the bot locally we can run:
+```
+python 4_local_static_request.py  "What is the future of AI"?
+```
  
 ## Pre-Trained Models
 We have four pre-trained models
