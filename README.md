@@ -80,17 +80,23 @@ To install and create the experimentation framework using AML, please follow the
 
 **Operationalize trained MRC models on Azure for evaluation**
 
-Operationalization is the process of publishing models and code as web services and the consumption of these services to produce business results. The AI models can be deployed to local or Azure Container Service (ACS) cluster. You can scale the service to more containers.
+Operationalization is the process of publishing models and code as web services and the consumption of these services to produce business results. The AI models can be deployed to local or Azure Container Service (ACS) cluster. You can scale the service to more containers.  
+We use Azure Machine Learning (AML) for deploying the MRC models in local system. AML enable data scientists to easily operationalize their models. To operationalize an AI model using AML, we can leverage the command-line interface (CLI), and specify the required configurations using the AML operationalization module.  
 
-We use Azure Machine Learning (AML) for deploying the MRC models in local system. AML enable data scientists to easily operationalize their models. To operationalize an AI model using AML, we can leverage the command-line interface (CLI), and specify the required configurations using the AML operationalization module. From the AML command line:
+**Prerequisites** 
 
-1. Make sure to run az login before the environment setup step.
-2. Make sure to run az ml env set -n [environment name] -g [resource group] to set up deployment environment
-3. AML Web deployment solution architecture diagram is in **Figure 2**.
+To start, you need: 
+a. An Azure subscription. If you don't have an Azure subscription, create a free account before you begin. 
+b. An experimentation account and Azure Machine Learning installed. 
+c. A Docker engine installed and running locally 
 
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/deploymentarchitecture.PNG)
+**To operationalize locally using a DSVM**
 
-4. Once the deployment environment is setup, run the commands below to operationalize the MRC model.
+We use local mode deployment to run in Docker containers. We can use local mode for development and testing. The Docker engine must be running locally to complete the following steps to operationalize the model -  
+a. Open the command-line interface (CLI) in AML  
+b. Make sure to run az login before the environment setup step. 
+c. Make sure to run az ml env set -n [environment name] -g [resource group] to set up deployment environment 
+d. Once the deployment environment is setup, run the commands below to operationalize each MRC model 
 ```
 az ml service create realtime\
 -f scoring_code.py\
@@ -101,6 +107,8 @@ az ml service create realtime\
 -collect-model-data true\
 -c aml_config\conda_dependencies.yml
 ```
+<br />
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/deploymentarchitecture.PNG)
 <br />
 <br />
 
