@@ -38,12 +38,19 @@ MRC is about answering a query about a given context paragraph. MRC requires mod
 
 Enterprise chatbots have been on the rise for some time now. To advance the Enterprise Chatbot scenarios, research and industry has turned toward Conversational AI approaches, especially in complex use cases such as banking, insurance and telecommunications. One of the major challenges for Conversational AI is to understand complex sentences of human speech in the same way humans do. Real human conversation is never straightforward - it is full of imperfections consisting of multi-string words, abbreviations, fragments, mispronunciations and a host of other issues. 
 Machine Reading Comprehension (MRC) is an integral component for solving the Conversational AI problem we face today. Today MRC approaches can answer objective questions such as “what causes rain” with high accuracy. Such approaches can be used in real-world applications like customer service. MRC can be used to both navigate and comprehend the “give-and-take” interactions. Some common applications of MRC in business are- 
+
    •	Translating conversation from one language to another
+   
    •	Automatic QA capability across different domains
+   
    •	Automatic reply of emails
+   
    •	Extraction of embedded information from conversation for targeted ads/promotions
+   
    •	Personalized customer service
+   
    •	Creating personality and knowledge for bots based on conversation domain
+   
 Such intelligent conversational interfaces are the simplest way for businesses to interact with devices, services, customers, suppliers and employees everywhere. Intelligent assistants built using MRC approaches can be taught and continue to learn every day. The business impacts can include reducing costs by increasing self-service, improving end-user experience and satisfaction, delivering relevant information faster, and increasing compliance with internal procedures.
 In this blog, we want to evaluate different MRC approaches to solve automatic QA capability across different domains.
 
