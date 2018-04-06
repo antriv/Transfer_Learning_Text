@@ -34,6 +34,22 @@ MRC is about answering a query about a given context paragraph. MRC requires mod
 <br />
 <br />
 
+**Why is MRC approaches important for enterprises?**
+
+Enterprise chatbots have been on the rise for some time now. To advance the Enterprise Chatbot scenarios, research and industry has turned toward Conversational AI approaches, especially in complex use cases such as banking, insurance and telecommunications. One of the major challenges for Conversational AI is to understand complex sentences of human speech in the same way humans do. Real human conversation is never straightforward - it is full of imperfections consisting of multi-string words, abbreviations, fragments, mispronunciations and a host of other issues. 
+Machine Reading Comprehension (MRC) is an integral component for solving the Conversational AI problem we face today. Today MRC approaches can answer objective questions such as “what causes rain” with high accuracy. Such approaches can be used in real-world applications like customer service. MRC can be used to both navigate and comprehend the “give-and-take” interactions. Some common applications of MRC in business are- 
+   •	Translating conversation from one language to another
+   •	Automatic QA capability across different domains
+   •	Automatic reply of emails
+   •	Extraction of embedded information from conversation for targeted ads/promotions
+   •	Personalized customer service
+   •	Creating personality and knowledge for bots based on conversation domain
+Such intelligent conversational interfaces are the simplest way for businesses to interact with devices, services, customers, suppliers and employees everywhere. Intelligent assistants built using MRC approaches can be taught and continue to learn every day. The business impacts can include reducing costs by increasing self-service, improving end-user experience and satisfaction, delivering relevant information faster, and increasing compliance with internal procedures.
+In this blog, we want to evaluate different MRC approaches to solve automatic QA capability across different domains.
+
+<br />
+<br />
+
 **MRC Transfer Learning**
 
 Recently, several researchers have explored various approaches to attack this MRC transfer learning problem. Their work has been a key step towards developing some scalable solutions to extend MRC to a wider range of domains.
@@ -65,11 +81,11 @@ To build all the MRC models, we use the following tools and Platform –
 
   **2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create the MRC models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
 
-## Prerequisites:
+**Prerequisites**
 ```
 pip install <dependencies>
 ```
-## Experimentation steps:
+**Experimentation steps**
 To install and create the experimentation framework using AML, please follow the simple tutorial here (https://docs.microsoft.com/en-us/azure/machine-learning/preview/quickstart-installation). Once the code is setup in AML- 
 1) We run the training code for training the model
 2) This produces a trained model
