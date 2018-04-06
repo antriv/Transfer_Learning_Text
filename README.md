@@ -107,8 +107,9 @@ az ml service create realtime\
 -collect-model-data true\
 -c aml_config\conda_dependencies.yml
 ```
-<br />
+
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/deploymentarchitecture.PNG)
+
 <br />
 <br />
 
@@ -134,7 +135,9 @@ Please refer to the detailed blogs below for evaluation of each MRC Model on our
 
 [**Part 6 - Evaluating the OpenNMT Model**](https://github.com/antriv/Transfer_Learning_Text/blob/master/Finetuning/OpenNMT_QuestionGeneration/README.md)
 
-Our comparison work is summarized below.
+Our comparison work is summarized in Table 1 below. 
+
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/eval_table_1.PNG)
 
 <br />
 <br />
@@ -165,14 +168,14 @@ We compare the performance in more details below.
 
     a. **Pros**
 
-    Document-QA model is very easy to train and test (thanks to AllenAI for making all the codes available through open [GitHub](https://github.com/allenai/document-qa) link). As we can see from **Figure 5** and **Figure 7** , the Document-QA model does a better job compared to the BiDAF model we explored earlier. Given multiple larger documents, this model usually takes a very little time to produce multiple probable spans as answers.
+    Document-QA model is very easy to train and test (thanks to AllenAI for making all the codes available through open [GitHub](https://github.com/allenai/document-qa) link). The Document-QA model does a better job compared to the BiDAF model we explored earlier. Given multiple larger documents, this model usually takes a very little time to produce multiple probable spans as answers.
 
     b. **Cons**
 
-    However, as Document-QA does not give a single answer, it might be the case the most probable answer is assigned a lower priority by the algorithm.which might not make any sense at all. We hypothesize that if the model only sees paragraphs that contain answers, it might become too confident in heuristics or patterns that are only effective when it is known a priori that an answer exists. For example, in **Table 1** (adapted from the [paper](https://arxiv.org/pdf/1710.10723.pdf)) below, we observe that the model will assign high confidence values to spans that strongly match the category of the answer, even if the question words do not match the context. This might work passably well if an answer is present but can lead to highly over-confident extractions in other cases.
+    However, as Document-QA does not give a single answer, it might be the case the most probable answer is assigned a lower priority by the algorithm.which might not make any sense at all. We hypothesize that if the model only sees paragraphs that contain answers, it might become too confident in heuristics or patterns that are only effective when it is known a priori that an answer exists. For example, in **Table 2** (adapted from the [paper](https://arxiv.org/pdf/1710.10723.pdf)) below, we observe that the model will assign high confidence values to spans that strongly match the category of the answer, even if the question words do not match the context. This might work passably well if an answer is present but can lead to highly over-confident extractions in other cases.
 
     c. **Our Resource Contribution in GitHub:** [https://github.com/antriv/Transfer\_Learning\_Text/tree/master/Transfer\_Learning/document-qa](https://github.com/antriv/Transfer_Learning_Text/tree/master/Transfer_Learning/document-qa)
-
+n
 
 ![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/maintable1.PNG)
 
