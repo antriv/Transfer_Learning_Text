@@ -52,7 +52,7 @@ Machine Reading Comprehension (MRC) is an integral component for solving the Con
    •	Creating personality and knowledge for bots based on conversation domain
    
 Such intelligent conversational interfaces are the simplest way for businesses to interact with devices, services, customers, suppliers and employees everywhere. Intelligent assistants built using MRC approaches can be taught and continue to learn every day. The business impacts can include reducing costs by increasing self-service, improving end-user experience and satisfaction, delivering relevant information faster, and increasing compliance with internal procedures.
-In this blog, we want to evaluate different MRC approaches to solve automatic QA capability across different domains.
+In this blog, we want to evaluate different MRC approaches to solve **automatic QA capability across different domains**.
 
 <br />
 <br />
