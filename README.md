@@ -16,17 +16,6 @@ In this blog, we attempt to capture a comprehensive study of existing MRC transf
 <br />
 <br />
 
-**Why is Machine Reading Comprehension (MRC) important for enterprises?**
-
-Enterprise chatbots have been on the rise for some time now. Chatbots can simplify applications for users. For example, rather than navigating through an interface or website to find information, users can just say or type what they want. Users can also compress multistep tasks into a single command, such as, &quot;Get my list of open opportunities this quarter, and send it to John Smith.&quot; Chatbots allow for non-expert users to interact with many complex applications in an intuitive fashion from a single interface. This gives rise to powerful automation opportunities, where chatbots trigger actions and orchestrate processes across a range of applications through the course of dialogue in natural language. The business impacts can include reducing costs by increasing self-service, improving end-user experience and satisfaction, delivering relevant information faster, and increasing compliance with internal procedures.
-
-To advance the Enterprise Chatbot scenarios, research and industry has turned toward Conversational AI approaches, especially in complex use cases such as banking, insurance and telecommunications. Beyond chatbot capabilities, Conversational AI strives to understand complex sentences of human speech in the same way humans do. Real human conversation is never straightforward - it is full of imperfections consisting of multi-string words, abbreviations, fragments, mispronunciations and a host of other issues. Intelligent conversational interfaces are the simplest way for businesses to interact with devices, services, customers, suppliers and employees everywhere. Intelligent assistants built on these approaches can be taught and continue to learn every day.
-
-**Machine Reading Comprehension (MRC)** is an integral component for solving the Conversational AI problem we face today. Today MRC approaches can answer objective questions such as _&quot;what causes rain&quot;_ with high accuracy. Such approaches can be used in real-world applications like customer service.
-
-<br />
-<br />
-
 **Machine Reading Comprehension (MRC)**
 
 MRC is about answering a query about a given context paragraph. MRC requires modeling complex interactions between the context and the query. Recently, attention mechanisms have been successfully extended to MRC. Typically, these methods use attention to focus on a small portion of the context and summarize it with a fixed-size vector, couple attentions temporally, and/or often form a unidirectional attention. It has been shown that these MRC models perform well for transfer learning and finetuning of text for a new domain.
