@@ -27,7 +27,7 @@ def predict():
     print("Preprocessing...")
 
     # Load the model
-    model_dir = ModelDir("/home/antriv/conversation_ai/ALLENAI_DocumentQA/document-qa/pretrained_models/models/triviaqa-unfiltered-shared-norm")
+    model_dir = ModelDir("/home/antriv/conversation_ai/Transfer_Learning/ALLENAI_DocumentQA/document-qa/pretrained_models/models/triviaqa-unfiltered-shared-norm")
     model = model_dir.get_model()
     if not isinstance(model, ParagraphQuestionModel):
         raise ValueError("This script is built to work for ParagraphQuestionModel models only")
@@ -37,7 +37,7 @@ def predict():
 
     # Read the documents
     documents = []
-    doclist = ["/home/antriv/data/satya_qa_utf8.txt"]
+    doclist = ["/home/antriv/data/The-Future-Computed.txt"]
     for doc in doclist:
         if not isfile(doc):
             raise ValueError(doc + " does not exist")

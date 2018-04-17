@@ -1,0 +1,165 @@
+{
+  "name": "Attention",
+  "memory_builder": {
+    "name": "NullBiMapper"
+  },
+  "context_mapper": null,
+  "question_mapper": null,
+  "predictor": {
+    "name": "BoundsPredictor",
+    "span_predictor": {
+      "name": "IndependentBounds",
+      "aggregate": "sum"
+    },
+    "predictor": {
+      "name": "ChainBiMapper",
+      "first_layer": {
+        "name": "CudnnGru",
+        "n_units": 100,
+        "n_layers": 1,
+        "save_cannonical_parameters": true,
+        "keep_recurrent": 1,
+        "w_init": "truncated_normal",
+        "bidirectional": true,
+        "learn_initial_states": false,
+        "recurrent_init": null
+      },
+      "second_layer": {
+        "name": "CudnnGru",
+        "n_units": 100,
+        "n_layers": 1,
+        "save_cannonical_parameters": true,
+        "keep_recurrent": 1,
+        "w_init": "truncated_normal",
+        "bidirectional": true,
+        "learn_initial_states": false,
+        "recurrent_init": null
+      }
+    },
+    "init": "glorot_uniform"
+  },
+  "embed_mapper": {
+    "name": "SequenceMapperSeq",
+    "layers": [
+      {
+        "keep_probs": null
+      },
+      {
+        "n_units": 100,
+        "save_cannonical_parameters": true,
+        "learn_initial_states": false,
+        "w_init": "truncated_normal",
+        "keep_recurrent": 1,
+        "bidirectional": true,
+        "n_layers": 1,
+        "recurrent_init": null
+      },
+      {
+        "keep_probs": null
+      }
+    ]
+  },
+  "word_embed": {
+    "name": "FixedWordEmbedder",
+    "version": 1,
+    "shrink_embed": false,
+    "cpu": false,
+    "vec_name": "glove.840B.300d",
+    "learn_unk": false,
+    "word_vec_init_scale": 0,
+    "keep_probs": 1,
+    "keep_word": 1
+  },
+  "match_encoder": {
+    "name": "SequenceMapperSeq",
+    "layers": [
+      {
+        "bias": true,
+        "w_init": "glorot_uniform",
+        "activation": "relu",
+        "n_out": 200
+      },
+      {
+        "other": {
+          "name": "SequenceMapperSeq",
+          "layers": [
+            {
+              "keep_probs": null
+            },
+            {
+              "n_units": 100,
+              "save_cannonical_parameters": true,
+              "learn_initial_states": false,
+              "w_init": "truncated_normal",
+              "keep_recurrent": 1,
+              "bidirectional": true,
+              "n_layers": 1,
+              "recurrent_init": null
+            },
+            {
+              "keep_probs": null
+            },
+            {
+              "alignment_bias": false,
+              "attention": {
+                "name": "TriLinear",
+                "version": 1,
+                "bias": false,
+                "init": "glorot_uniform"
+              },
+              "merge": {
+                "name": "ConcatWithProduct"
+              }
+            },
+            {
+              "bias": true,
+              "w_init": "glorot_uniform",
+              "activation": "relu",
+              "n_out": 200
+            }
+          ]
+        }
+      },
+      {
+        "keep_probs": null
+      }
+    ]
+  },
+  "preprocess": null,
+  "encoder": {
+    "name": "DocumentAndQuestionEncoder",
+    "version": 2,
+    "para_size_th": null,
+    "answer_encoder": {
+      "name": "SingleSpanAnswerEncoder"
+    },
+    "word_featurizer": null
+  },
+  "attention": {
+    "name": "BiAttention",
+    "q2c": true,
+    "query_dots": true,
+    "sim": {
+      "name": "TriLinear",
+      "version": 1,
+      "bias": false,
+      "init": "glorot_uniform"
+    }
+  },
+  "word_embed_layer": null,
+  "char_embed": {
+    "name": "CharWordEmbedder",
+    "embedder": null,
+    "shared_parameters": null,
+    "layer": {
+      "name": "MaxPool",
+      "map_layer": {
+        "name": "Conv1d",
+        "filter_size": 5,
+        "activation": "relu",
+        "num_filters": 100,
+        "keep_probs": 0.8
+      }
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "name": "Attention",
+  "embed_mapper": {
+    "name": "SequenceMapperSeq",
+    "layers": [
+      {
+        "keep_probs": null
+      },
+      {
+        "save_cannonical_parameters": true,
+        "learn_initial_states": false,
+        "n_units": 100,
+        "keep_recurrent": 1,
+        "w_init": {
+          "name": "TruncatedNormal",
+          "config": {
+            "seed": null,
+            "stddev": 0.05,
+            "mean": 0.0
+          }
+        },
+        "bidirectional": true,
+        "recurrent_init": null,
+        "n_layers": 1
+      },
+      {
+        "keep_probs": null
+      }
+    ]
+  },
+  "question_mapper": null,
+  "char_embed": {
+    "name": "CharWordEmbedder",
+    "layer": {
+      "name": "MaxPool",
+      "map_layer": {
+        "name": "Conv1d",
+        "activation": "relu",
+        "keep_probs": 0.8,
+        "num_filters": 100,
+        "filter_size": 5
+      }
+    },
+    "shared_parameters": null,
+    "embedder": null
+  },
+  "word_embed": {
+    "name": "FixedWordEmbedder",
+    "version": 1,
+    "word_vec_init_scale": 0,
+    "keep_probs": 1,
+    "vec_name": "glove.840B.300d",
+    "learn_unk": false,
+    "cpu": true,
+    "shrink_embed": false,
+    "keep_word": 1
+  },
+  "encoder": {
+    "name": "DocumentAndQuestionEncoder",
+    "version": 2,
+    "answer_encoder": {
+      "name": "GroupedSpanAnswerEncoder"
+    },
+    "word_featurizer": null,
+    "para_size_th": null
+  },
+  "memory_builder": {
+    "name": "NullBiMapper"
+  },
+  "preprocess": null,
+  "context_mapper": null,
+  "word_embed_layer": null,
+  "attention": {
+    "name": "BiAttention",
+    "sim": {
+      "name": "TriLinear",
+      "version": 1,
+      "init": "glorot_uniform",
+      "bias": true
+    },
+    "q2c": true,
+    "query_dots": true
+  },
+  "match_encoder": {
+    "name": "SequenceMapperSeq",
+    "layers": [
+      {
+        "n_out": 200,
+        "w_init": "glorot_uniform",
+        "activation": "relu",
+        "bias": true
+      },
+      {
+        "other": {
+          "name": "SequenceMapperSeq",
+          "layers": [
+            {
+              "keep_probs": null
+            },
+            {
+              "save_cannonical_parameters": true,
+              "learn_initial_states": false,
+              "n_units": 100,
+              "keep_recurrent": 1,
+              "w_init": {
+                "name": "TruncatedNormal",
+                "config": {
+                  "seed": null,
+                  "stddev": 0.05,
+                  "mean": 0.0
+                }
+              },
+              "bidirectional": true,
+              "recurrent_init": null,
+              "n_layers": 1
+            },
+            {
+              "keep_probs": null
+            },
+            {
+              "merge": {
+                "name": "ConcatWithProduct"
+              },
+              "attention": {
+                "name": "TriLinear",
+                "version": 1,
+                "init": "glorot_uniform",
+                "bias": true
+              },
+              "alignment_bias": true
+            },
+            {
+              "n_out": 200,
+              "w_init": "glorot_uniform",
+              "activation": "relu",
+              "bias": true
+            }
+          ]
+        }
+      },
+      {
+        "keep_probs": null
+      }
+    ]
+  },
+  "predictor": {
+    "name": "BoundsPredictor",
+    "init": "glorot_uniform",
+    "predictor": {
+      "name": "ChainBiMapper",
+      "first_layer": {
+        "name": "CudnnGru",
+        "save_cannonical_parameters": true,
+        "learn_initial_states": false,
+        "n_units": 100,
+        "w_init": {
+          "name": "TruncatedNormal",
+          "config": {
+            "seed": null,
+            "stddev": 0.05,
+            "mean": 0.0
+          }
+        },
+        "bidirectional": true,
+        "n_layers": 1,
+        "recurrent_init": null,
+        "keep_recurrent": 1
+      },
+      "second_layer": {
+        "name": "CudnnGru",
+        "save_cannonical_parameters": true,
+        "learn_initial_states": false,
+        "n_units": 100,
+        "w_init": {
+          "name": "TruncatedNormal",
+          "config": {
+            "seed": null,
+            "stddev": 0.05,
+            "mean": 0.0
+          }
+        },
+        "bidirectional": true,
+        "n_layers": 1,
+        "recurrent_init": null,
+        "keep_recurrent": 1
+      }
+    },
+    "span_predictor": {
+      "name": "IndependentBoundsGrouped",
+      "aggregate": "sum"
+    }
+  }
+}

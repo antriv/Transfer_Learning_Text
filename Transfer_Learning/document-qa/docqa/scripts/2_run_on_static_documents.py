@@ -12,30 +12,29 @@ from docqa.doc_qa_models import ParagraphQuestionModel
 from docqa.model_dir import ModelDir
 from docqa.utils import flatten_iterable
 
+
+
 """
 Script to run a model on user provided question/context document. 
 This demonstrates how to use our document-pipeline on new input
 """
 
-
-def main():
-    parser = argparse.ArgumentParser(description="Run an ELMo model on user input")
-    # parser.add_argument("model", help="Model directory")
-    parser.add_argument("question", help="Question to answer")
-    # parser.add_argument("documents", help="List of text documents to answer the question with", nargs='+')
-    args = parser.parse_args()
-
-    print("Preprocessing...")
-
+def init():
+    global model, model_dir
+    print("Loading Model...")
     # Load the model
-    model_dir = ModelDir("/home/antriv/conversation_ai/ALLENAI_DocumentQA/document-qa/pretrained_models/models/triviaqa-unfiltered-shared-norm")
+    model_dir = ModelDir("pretrained_models/models/triviaqa-unfiltered-shared-norm")
     model = model_dir.get_model()
     if not isinstance(model, ParagraphQuestionModel):
         raise ValueError("This script is built to work for ParagraphQuestionModel models only")
 
+def run(input):
+
+    print("Preprocessing...")
+
     # Read the documents
     documents = []
-    doclist = ["/home/antriv/data/satya_qa_utf8.txt"]
+    doclist = ["future_computed.txt"]
     for doc in doclist:
         if not isfile(doc):
             raise ValueError(doc + " does not exist")
@@ -49,7 +48,7 @@ def main():
     # Tokenize the input, the models expects data to be tokenized using `NltkAndPunctTokenizer`
     # Note the model expects case-sensitive input
     tokenizer = NltkAndPunctTokenizer()
-    question = tokenizer.tokenize_paragraph_flat(args.question)  # List of words
+    question = tokenizer.tokenize_paragraph_flat(input)  # List of words
     # Now list of document->paragraph->sentence->word
     documents = [[tokenizer.tokenize_paragraph(p) for p in doc] for doc in documents]
 
@@ -129,4 +128,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Run an ELMo model on user input")
+    parser.add_argument("question", help="Question to answer")
+    args = parser.parse_args()
+    init()
+    run(args.question)

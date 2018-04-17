@@ -1,10 +1,14 @@
+#TO TEST:
+#curl -X POST -d '{"question": "What is AI Law"}' 'http://localhost:5000/predict'
+
 import argparse
+import os
 from os.path import isfile
 
 import flask
 import io
 import sys
-
+import glob
 import re
 import numpy as np
 import tensorflow as tf
@@ -19,25 +23,27 @@ from docqa.utils import flatten_iterable
 # initialize our Flask application and the Keras model
 app = flask.Flask(__name__)
 
-
 # ## Ask Away!
 @app.route("/predict", methods=["POST"])
 def predict():
     json_data = {"success": False, "predictions": []}
     print("Preprocessing...")
 
+    print("Loading Model...")
     # Load the model
-    model_dir = ModelDir("/home/antriv/conversation_ai/ALLENAI_DocumentQA/document-qa/pretrained_models/models/triviaqa-unfiltered-shared-norm")
+    model_dir = ModelDir("pretrained_models/models/triviaqa-unfiltered-shared-norm")
+    #model_dir = ModelDir("pretrained_models/models-cpu/triviaqa-unfiltered-shared-norm")
     model = model_dir.get_model()
     if not isinstance(model, ParagraphQuestionModel):
         raise ValueError("This script is built to work for ParagraphQuestionModel models only")
+
     
     # Load the question
     question = (flask.request.data).decode("utf-8")
 
     # Read the documents
     documents = []
-    doclist = ["/home/antriv/data/satya_qa_utf8.txt"]
+    doclist = ["future_computed.txt"]
     for doc in doclist:
         if not isfile(doc):
             raise ValueError(doc + " does not exist")

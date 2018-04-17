@@ -4,7 +4,7 @@ import tensorflow as tf
 from docqa.nn.layers import get_keras_activation, get_keras_initialization, SequenceMapper, SequenceEncoder, \
     MergeLayer, Encoder
 from tensorflow.contrib.cudnn_rnn.python.ops import cudnn_rnn_ops
-from tensorflow.contrib.cudnn_rnn.python.ops.cudnn_rnn_ops import CudnnCompatibleGRUCell
+#from tensorflow.contrib.cudnn_rnn.python.ops.cudnn_rnn_ops import CudnnCompatibleGRUCell
 from tensorflow.contrib.keras.python.keras.initializers import TruncatedNormal
 from tensorflow.contrib.rnn import LSTMStateTuple, LSTMBlockFusedCell, GRUBlockCell
 from tensorflow.python.ops.rnn import dynamic_rnn, bidirectional_dynamic_rnn
@@ -537,7 +537,7 @@ class CompatGruCellSpec(RnnCellSpec):
         self.num_units = num_units
 
     def __call__(self, is_train, scope=None):
-        return CudnnCompatibleGRUCell(self.num_units)
+        return cudnn_rnn_ops.CudnnCompatibleGRUCell(self.num_units)
 
 
 class RecurrentEncoder(SequenceEncoder):
