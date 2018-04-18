@@ -9,11 +9,11 @@ Modern machine learning models, especially deep neural networks, often significa
 transfer learning. In computer vision, deep convolutional neural networks trained on a large image
 classification dataset such as ImageNet have proved to be useful for initializing models on other vision tasks, such as object detection (Zeiler and Fergus, 2014). 
 
-But how can we leverage the transfer leaning technique for text? In this blog, we attempt to capture a comprehensive study of existing text transfer learning literature in the research community. We explore eight popular machine reading comprehension (MRC) algorithms (Figure 1).  In our blog, we evaluate and compare six of these papers – BIDAF, DOCQA, ReasoNet, R-NET, SynNet and OpenNMT. We initialize our models, pretrained on different source QA datasets, and show how standard transfer learning can achieve results on a large target corpus.
+But how can we leverage the transfer leaning technique for text? In this blog, we attempt to capture a comprehensive study of existing text transfer learning literature in the research community. We explore eight popular machine reading comprehension (MRC) algorithms (Figure 1).  In our blog, we evaluate and compare six of these papers – BIDAF, DOCQA, ReasoNet, R-NET, SynNet and OpenNMT. We initialize our models, pretrained on different source QA datasets, and show how standard transfer learning can achieve results on a large target corpus. For creating a test corpus, we choose the book [Future Computed](https://blogs.microsoft.com/blog/2018/01/17/future-computed-artificial-intelligence-role-society/) by Harry Shum and Brad Smith.
 
-For creating a test corpus, we choose the book [Future Computed](https://blogs.microsoft.com/blog/2018/01/17/future-computed-artificial-intelligence-role-society/) by Harry Shum and Brad Smith.
 We compared the performance of transfer learning approach for creating a QA system for this book using these pretrained MRC models. For our evaluation scenario, the performance of the Document-QA model outperforms that of other transfer learning approaches like BIDAF, ReasoNet and R-NET models. You can test the Document-QA model scenario using Jupyter notebook [here](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/docqa.ipynb).
 
+We compared the performance of finetuning learning approach for creating a QA corpus for this book using a couple of these pretrained MRC models. For our evaluation scenario, the performance of the OpenNMT model outperforms that of the SynNet model. You can test theOpenNMT model scenario using Jupyter notebook here. 
 <br />
 <br />
 
