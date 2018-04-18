@@ -13,7 +13,7 @@ But how can we leverage the transfer leaning technique for text? In this blog, w
 
 We compared the performance of transfer learning approach for creating a QA system for this book using these pretrained MRC models. For our evaluation scenario, the performance of the Document-QA model outperforms that of other transfer learning approaches like BIDAF, ReasoNet and R-NET models. You can test the Document-QA model scenario using Jupyter notebook [here](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/docqa.ipynb).
 
-We compared the performance of finetuning learning approach for creating a QA corpus for this book using a couple of these pretrained MRC models. For our evaluation scenario, the performance of the OpenNMT model outperforms that of the SynNet model. You can test theOpenNMT model scenario using Jupyter notebook here. 
+We compared the performance of finetuning learning approach for creating a QA corpus for this book using a couple of these pretrained MRC models. For our evaluation scenario, the performance of the OpenNMT model outperforms that of the SynNet model. You can test theOpenNMT model scenario using Jupyter notebook [here](https://github.com/antriv/Transfer_Learning_Text/blob/master/Finetuning/OpenNMT_QuestionGeneration/OpenNMT.ipynb). 
 <br />
 <br />
 
