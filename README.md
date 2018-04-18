@@ -1,17 +1,27 @@
 **Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
 <br />
 <br />
+**Motivation**
+Modern machine learning models, especially deep neural networks, often significantly benefit from
+transfer learning. In computer vision, deep convolutional neural networks trained on a large image
+classification dataset such as ImageNet have proved to be useful for initializing models on other vision tasks, such as object detection (Zeiler and Fergus, 2014). 
+
+But how can we leverage the transfer leaning technique for text? In this blog, we attempt to capture a comprehensive study of existing text transfer learning literature in the research community. We explore eight popular machine reading comprehension (MRC) algorithms (Figure 1).  In our blog, we evaluate and compare six of these papers – BIDAF, DOCQA, ReasoNet, R-NET, SynNet and OpenNMT. We initialize our models, pretrained on different source QA datasets, and show how standard transfer learning can achieve results on a large target corpus.
+
+For creating a test corpus, we choose the book [Future Computed](https://blogs.microsoft.com/blog/2018/01/17/future-computed-artificial-intelligence-role-society/) by Harry Shum and Brad Smith.
+We compared the performance of transfer learning approach for creating a QA system for this book using these pretrained MRC models. For our evaluation scenario, the performance of the Document-QA model outperforms that of other transfer learning approaches like BIDAF, ReasoNet and R-NET models. You can test the Document-QA model scenario using Jupyter notebook [here](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/docqa.ipynb).
+
+<br />
+<br />
 **Introduction**
 
-Modern machine learning models, especially deep neural networks, often significantly benefit from transfer learning. In computer vision, deep convolutional neural networks trained on a large image classification dataset such as ImageNet have proved to be useful for initializing models on other vision tasks, such as object detection (Zeiler and Fergus, 2014).
-
-In natural language processing (NLP), domain adaptation has traditionally been an important topic for syntactic parsing (McClosky et al., 2010) and named entity recognition (Chiticariu et al., 2010), among others. With the popularity of distributed representation, pre-trained word embedding models such as word2vec (Mikolov et al., 2013) and glove (Pennington et al., 2014) are also widely used for natural language tasks.
-
-Question answering (QA) is a long-standing challenge in NLP, and the community has introduced several paradigms and datasets for the task over the past few years. These paradigms differ from each other in the type of questions and answers and the size of the training data, from a few hundreds to millions of examples.
-
-In this blog, we are particularly interested in the context-aware QA paradigm, where the answer to each question can be obtained by referring to its accompanying context (paragraph or a list of sentences). For human beings, reading comprehension is a basic task, performed daily. As early as in elementary school, we can read an article, and answer questions about its key ideas and details. But for AI, full reading comprehension is still an elusive goal. Therefore, building machines that can perform machine reading comprehension (MRC) is of great interest.
-
-In this blog, we attempt to capture a comprehensive study of existing MRC transfer learning literature in the research community. We came across seven popular MRC algorithms ( **Figure 1** ).  In our work, we evaluate and compare six of these papers – **BIDAF** , **DOCQA** , **ReasoNet** , **R-NET** , **SynNet** and **OpenNMT**. We initialize our models, pretrained on different source QA datasets, and show how standard transfer learning can achieve results on a large target corpus.
+In natural language processing (NLP), domain adaptation has traditionally been an important topic for syntactic parsing (McClosky et al., 2010) and named entity recognition (Chiticariu et al., 2010), among others. With the popularity of distributed representation, pre-trained word embedding models such as word2vec (Mikolov et al., 2013) and glove (Pennington et al., 2014) are also widely used for natural language tasks. 
+Question answering (QA) is a long-standing challenge in NLP, and the community has introduced
+several paradigms and datasets for the task over the past few years. These paradigms differ from
+each other in the type of questions and answers and the size of the training data, from a few hundreds
+to millions of examples.
+In this blog, we are particularly interested in the context-aware QA paradigm, where the answer to each
+question can be obtained by referring to its accompanying context (paragraph or a list of sentences). For human beings, reading comprehension is a basic task, performed daily. As early as in elementary school, we can read an article, and answer questions about its key ideas and details. But for AI, full reading comprehension is still an elusive goal. Therefore, building machines that can perform machine reading comprehension (MRC) is of great interest. 
 
 <br />
 <br />
@@ -64,63 +74,30 @@ Currently, most state-of-the-art machine reading systems are built on supervised
 
 The MRC transfer learning works very well for generic articles. However, for many niche domains or verticals, this supervised training data does not exist. For example, if we need to build a new machine reading system to help doctors find valuable information about a new disease, there could be many documents available, but there is a lack of manually labeled questions about the articles, and the corresponding answers. This challenge is magnified by both the need to build a separate MRC system for each different disease, and that the volume of literature is increasing rapidly. Therefore, it is of crucial importance to figure out how to transfer an MRC system to a niche domain where no manually labeled questions and answers are available, but there is a body of documents.
 
-The idea of generating synthetic data to augment insufﬁcient training data has been explored before. For the target task of translation, [Sennrich et.al., 2016](https://arxiv.org/abs/1511.06709)  proposed to generate synthetic translations given real sentences to reﬁne an existing machine translation system. However, unlike machine translation, for tasks like MRC, we need to synthesize both questions and answers for an article. Moreover, while the question is a syntactically ﬂuent natural language sentence, the answer is mostly a salient semantic concept in the paragraph, such as a named entity, an action, or a number. Since the answer has a different linguistic structure than the question, it may be more appropriate to view answers and questions as two diverse types of data. A novel model called **SynNet** has been proposed by [Golub et. al. 2017](https://arxiv.org/pdf/1706.09789.pdf), to address this critical need. OpenNMT also has a finetuning method implemented by [Xinya Du et. al., 2017](https://arxiv.org/pdf/1705.00106.pdf).
+The idea of generating synthetic data to augment insufﬁcient training data has been explored before. For the target task of translation, [Sennrich et.al., 2016](https://arxiv.org/abs/1511.06709)  proposed to generate synthetic translations given real sentences to reﬁne an existing machine translation system. However, unlike machine translation, for tasks like MRC, we need to synthesize both questions and answers for an article. Moreover, while the question is a syntactically ﬂuent natural language sentence, the answer is mostly a salient semantic concept in the paragraph, such as a named entity, an action, or a number. Since the answer has a different linguistic structure than the question, it may be more appropriate to view answers and questions as two diverse types of data. A novel model called **SynNet** has been proposed by [Golub et. al. 2017](https://arxiv.org/pdf/1706.09789.pdf), to address this critical need. **OpenNMT** also has a finetuning method implemented by [Xinya Du et. al., 2017](https://arxiv.org/pdf/1705.00106.pdf).
 
 <br />
 <br />
 
-**Microsoft AI Platform for training the MRC models**
+**Training the MRC models**
 
-To build all the MRC models, we use the following tools and Platform –
-
-  **1.** We use [DSVM](https://azure.microsoft.com/en-us/services/virtual-machines/data-science-virtual-machines/) as the compute environment with a NVIDIA Tesla K80 GPU, CUDA and cuDNN libraries.
-
-  **2.** All the experiments were run on [Microsoft Azure Machine Learning (AML)](https://docs.microsoft.com/en-us/azure/machine-learning/preview/). Azure Machine Learning is a cross-platform application, which makes the modelling and model deployment process much faster versus what was possible before. We create the MRC models using open-source packages supported in AML. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the AML environment.
+We use Deep Learning Virtual Machine ([DSVM])(https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.dsvm-deep-learning) as the compute environment with a NVIDIA Tesla K80 GPU, CUDA and cuDNN libraries. The DLVM is a specially configured variant of the Data Science Virtual Machine (DSVM) to make it more straightforward to use GPU-based VM instances for training deep learning models. It is supported on Windows 2016 and the Ubuntu Data Science Virtual Machine. It shares the same core VM images (and hence all the rich toolset) as the DSVM but is configured to make deep learning easier. All the experiments were run on a Linux DLVM with 2 GPUs. We use TensorFlow and Keras with Tensorflow backend to build the models. We pip installed all the dependencies in the DLVM environment.
 
 **Prerequisites**
-```
-pip install <dependencies>
-```
+For each model follow Instructions.md in the [GitHub](https://github.com/antriv/Transfer_Learning_Text) to download code and install dependencies.
 **Experimentation steps**
-To install and create the experimentation framework using AML, please follow the simple tutorial here (https://docs.microsoft.com/en-us/azure/machine-learning/preview/quickstart-installation). Once the code is setup in AML- 
-1) We run the training code for training the model
-2) This produces a trained model
-3) We then run the scoring code to test the accuracy of the trained model
-
+Once the code is setup in DLVM - 
+a.	We run the code for training the model
+b.	This produces a trained model
+c.	We then run the scoring code to test the accuracy of the trained model
+For all code and related details, please refer to [our GitHub link here](https://github.com/antriv/Transfer_Learning_Text).
 <br />
 <br />
 
-**Operationalize trained MRC models on Azure for evaluation**
+**Operationalize trained MRC models on DLVM using Python Flask API**
+Operationalization is the process of publishing models and code as web services and the consumption of these services to produce business results. The AI models can be deployed to local DLVM using python Flask API. To operationalize an AI model using DLVM, we can leverage the JupyterHub in DLVM. Please follow similar steps listed in this [notebook](https://github.com/antriv/Transfer_Learning_Text/blob/master/Transfer_Learning/document-qa/docqa.ipynb) for each model. DLVM model deployment architecture diagram is as shown in **Figure 2**.
 
-Operationalization is the process of publishing models and code as web services and the consumption of these services to produce business results. The AI models can be deployed to local or Azure Container Service (ACS) cluster. You can scale the service to more containers.  
-We use Azure Machine Learning (AML) for deploying the MRC models in local system. AML enable data scientists to easily operationalize their models. To operationalize an AI model using AML, we can leverage the command-line interface (CLI), and specify the required configurations using the AML operationalization module.  
-
-**Prerequisites** 
-
-To start, you need: 
-a. An Azure subscription. If you don't have an Azure subscription, create a free account before you begin. 
-b. An experimentation account and Azure Machine Learning installed. 
-c. A Docker engine installed and running locally 
-
-**To operationalize locally using a DSVM**
-
-We use local mode deployment to run in Docker containers. We can use local mode for development and testing. The Docker engine must be running locally to complete the following steps to operationalize the model -  
-a. Open the command-line interface (CLI) in AML  
-b. Make sure to run az login before the environment setup step. 
-c. Make sure to run az ml env set -n [environment name] -g [resource group] to set up deployment environment 
-d. Once the deployment environment is setup, run the commands below to operationalize each MRC model 
-```
-az ml service create realtime\
--f scoring_code.py\
--model-file model.pkl\
--s service schema.json\
--n azure_AI_model_api\
--r python\
--collect-model-data true\
--c aml_config\conda_dependencies.yml
-```
-
-![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/deploymentarchitecture.PNG)
+![alt text](https://github.com/antriv/Transfer_Learning_Text/blob/master/screenshots/main4.PNG)
 
 <br />
 <br />
@@ -254,6 +231,6 @@ n
 
 **Conclusion**
 
-In this blog post, we use Azure Machine Learning to train and compare different MRC models for transfer learning. We evaluate four MRC algorithms and compare their performance by creating a QA bot for a corpus using each of the models. In the blog, we demonstrate the importance of selecting relevant data using transfer learning. We show that considering task and domain-specific characteristics and learning an appropriate data selection measure outperforms off-the-shelf metrics. MRC approaches had given AI more comprehension power, but MRC algorithms still don&#39;t really understand what it reads—it doesn&#39;t know what _&quot;British rock group Coldplay&quot;_ really is, besides it being the answer to a Super Bowl question. There are many NLP applications that need models that can transfer knowledge to new tasks and adapt to new domains with such human level understanding, and we feel this is just the beginning of our text transfer learning journey.
+In this blog post, we use DLVM to train and compare different MRC models for transfer learning. We evaluate four MRC algorithms and compare their performance by creating a QA bot for a corpus using each of the models. In the blog, we demonstrate the importance of selecting relevant data using transfer learning. We show that considering task and domain-specific characteristics and learning an appropriate data selection measure outperforms off-the-shelf metrics. MRC approaches had given AI more comprehension power, but MRC algorithms still don’t really understand what it reads—it doesn’t know what “British rock group Coldplay” really is, besides it being the answer to a Super Bowl question. There are many NLP applications that need models that can transfer knowledge to new tasks and adapt to new domains with such human level understanding, and we feel this is just the beginning of our text transfer learning journey.
 
 Please feel free to email me at [antriv@microsoft.com](mailto:antriv@microsoft.com) if you have questions.
