@@ -38,11 +38,7 @@ The R-NET paper authors provided us with a SQUAD-trained R-NET model and some sa
 
 5. **Creating a QA-Bot with R-NET Model for our comparison study**
 
-**STILL TODO**
-Instead of trying QA on multiple disjoint documents, we wanted to create a QA-Bot for a big corpus using the trained R-NET model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI) ( **Figure 3** ).
-
-![alt text]()
-
+Instead of trying QA on multiple disjoint documents, we wanted to create a QA-Bot for a big corpus using the trained R-NET model. For creating our test corpus, we choose the book [Future Computed](https://msblob.blob.core.windows.net/ncmedia/2018/01/The-Future-Computed.pdf) by Harry Shum and Brad Smith. We converted the online book PDF to a word format and removed all images and diagrams from the book. Our test corpus now consists of text only. We wrote a bot script where we use this corpus only for testing any question coming from the bot UI. We operationalized the bot and tested it with several questions on the topic of Artificial Intelligence (AI).
 
 6. **Existing Resources**
 
