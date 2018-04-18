@@ -1,6 +1,8 @@
 **Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
+
 <br />
 <br />
+
 **Motivation**
 Modern machine learning models, especially deep neural networks, often significantly benefit from
 transfer learning. In computer vision, deep convolutional neural networks trained on a large image
@@ -13,6 +15,7 @@ We compared the performance of transfer learning approach for creating a QA syst
 
 <br />
 <br />
+
 **Introduction**
 
 In natural language processing (NLP), domain adaptation has traditionally been an important topic for syntactic parsing (McClosky et al., 2010) and named entity recognition (Chiticariu et al., 2010), among others. With the popularity of distributed representation, pre-trained word embedding models such as word2vec (Mikolov et al., 2013) and glove (Pennington et al., 2014) are also widely used for natural language tasks. 
