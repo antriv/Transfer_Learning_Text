@@ -1,4 +1,4 @@
-**Conversation AI: Transfer learning text using machine reading comprehension and Azure Machine Learning**
+**Conversation AI Re-imagined: Transfer Learning Text**
 
 <br />
 <br />
