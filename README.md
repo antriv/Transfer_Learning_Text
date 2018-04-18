@@ -4,6 +4,7 @@
 <br />
 
 **Motivation**
+
 Modern machine learning models, especially deep neural networks, often significantly benefit from
 transfer learning. In computer vision, deep convolutional neural networks trained on a large image
 classification dataset such as ImageNet have proved to be useful for initializing models on other vision tasks, such as object detection (Zeiler and Fergus, 2014). 
