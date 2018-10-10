@@ -5,7 +5,7 @@ from docqa.nn.layers import get_keras_activation, get_keras_initialization, Sequ
     MergeLayer, Encoder
 from tensorflow.contrib.cudnn_rnn.python.ops import cudnn_rnn_ops
 #from tensorflow.contrib.cudnn_rnn.python.ops.cudnn_rnn_ops import CudnnCompatibleGRUCell
-from tensorflow.contrib.keras.python.keras.initializers import TruncatedNormal
+from tensorflow.keras.initializers import TruncatedNormal
 from tensorflow.contrib.rnn import LSTMStateTuple, LSTMBlockFusedCell, GRUBlockCell
 from tensorflow.python.ops.rnn import dynamic_rnn, bidirectional_dynamic_rnn
 
